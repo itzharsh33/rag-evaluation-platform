@@ -1,0 +1,12 @@
+{
+  "name": "rag-evaluation-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A RAG evaluation and optimization platform",
+  "scripts": {
+    "dev": "docker compose up --build",
+    "down": "docker compose down",
+    "logs": "docker compose logs -f",
+    "test:api": "npm --prefix apps/api test"
+  }
+}

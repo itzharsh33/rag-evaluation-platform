@@ -23,14 +23,19 @@ services:
   api:
     build:
       context: ./apps/api
+    env_file:
+      - .env
     environment:
       NODE_ENV: development
       API_PORT: 4000
       DATABASE_URL: postgresql://${POSTGRES_USER:-rag_app}:${POSTGRES_PASSWORD:-change_me_local_only}@db:5432/${POSTGRES_DB:-rag_platform}
       WORKSPACE_ID: default
       FRONTEND_ORIGIN: http://localhost:3000
+      UPLOAD_DIR: /app/uploads
     ports:
       - "4000:4000"
+    volumes:
+      - ./uploads:/app/uploads
     depends_on:
       db:
         condition: service_healthy

@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import { env } from "./config/env.js";
 import { healthRouter } from "./routes/health.js";
+import { documentsRouter } from "./routes/documents.js";
+import { ragRouter } from "./routes/rag.js";
 
 export const app = express();
 
@@ -25,8 +27,33 @@ app.get("/api", (_req, res) => {
 
 app.use("/api/health", healthRouter);
 
+app.use("/api/documents", documentsRouter);
+
+app.use("/api/rag", ragRouter);
+
 app.use((_req, res) => {
   res.status(404).json({
     error: "Not found"
   });
 });
+
+
+app.use(
+  (
+    error: Error & { status?: number },
+    _req: import("express").Request,
+    res: import("express").Response,
+    _next: import("express").NextFunction,
+  ) => {
+    console.error("API request failed:", error.message);
+
+    const status = error.status ?? 500;
+
+    res.status(status).json({
+      error:
+        status < 500
+          ? error.message
+          : "An internal server error occurred.",
+    });
+  },
+);

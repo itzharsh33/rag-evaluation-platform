@@ -10,6 +10,7 @@ import { env } from "../config/env.js";
 import { extractDocumentText } from "../services/document-extractor.js";
 import { chunkText } from "../services/chunker.js";
 import { embedTexts } from "../services/embeddings.js";
+import { semanticChunkText } from "../services/semantic-chunker.js";
 
 export const documentsRouter = Router();
 
@@ -67,17 +68,17 @@ documentsRouter.post("/upload", (req, res, next) => {
         req.file.mimetype,
       );
 
-    //   const chunks = chunkText(extractedDocument.text, 1000, 150);
+      //   const chunks = chunkText(extractedDocument.text, 1000, 150);
 
-    let nextChunkIndex = 0;
+      let nextChunkIndex = 0;
 
-const chunks = extractedDocument.pages.flatMap((page) =>
-  chunkText(page.text, 1000, 150).map((chunk) => ({
-    index: nextChunkIndex++,
-    content: chunk.content,
-    pageNumber: page.pageNumber,
-  })),
-);
+      const chunks = extractedDocument.pages.flatMap((page) =>
+        chunkText(page.text, 1000, 150).map((chunk) => ({
+          index: nextChunkIndex++,
+          content: chunk.content,
+          pageNumber: page.pageNumber,
+        })),
+      );
 
       if (chunks.length === 0) {
         throw new Error("The document did not produce any usable chunks.");
@@ -133,25 +134,8 @@ const chunks = extractedDocument.pages.flatMap((page) =>
           throw new Error(`Missing chunk or embedding at index ${i}.`);
         }
 
-    //     await client.query(
-    //       `INSERT INTO chunks (
-    //    document_id, workspace_id, collection, chunk_index,
-    //    content, page_number, content_hash, embedding
-    //  )
-    //  VALUES ($1, $2, $3, $4, $5, NULL, $6, $7::vector)`,
-    //       [
-    //         documentId,
-    //         env.workspaceId,
-    //         "workspace",
-    //         chunk.index,
-    //         chunk.content,
-    //         createHash("sha256").update(chunk.content).digest("hex"),
-    //         `[${embedding.join(",")}]`,
-    //       ],
-    //     );
-
-     await client.query(
-  `INSERT INTO chunks (
+        await client.query(
+          `INSERT INTO chunks (
      document_id,
      workspace_id,
      collection,
@@ -162,19 +146,17 @@ const chunks = extractedDocument.pages.flatMap((page) =>
      embedding
    )
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8::vector)`,
-  [
-    documentId,
-    env.workspaceId,
-    "workspace",
-    chunk.index,
-    chunk.content,
-    chunk.pageNumber,
-    createHash("sha256")
-      .update(chunk.content)
-      .digest("hex"),
-    `[${embedding.join(",")}]`,
-  ],
-);
+          [
+            documentId,
+            env.workspaceId,
+            "workspace",
+            chunk.index,
+            chunk.content,
+            chunk.pageNumber,
+            createHash("sha256").update(chunk.content).digest("hex"),
+            `[${embedding.join(",")}]`,
+          ],
+        );
       }
 
       await client.query("COMMIT");
@@ -264,7 +246,9 @@ documentsRouter.delete("/:id", async (req, res, next) => {
       return;
     }
 
-    await client.query("DELETE FROM chunks WHERE document_id = $1", [req.params.id]);
+    await client.query("DELETE FROM chunks WHERE document_id = $1", [
+      req.params.id,
+    ]);
 
     await client.query(
       `DELETE FROM documents
@@ -288,5 +272,151 @@ documentsRouter.delete("/:id", async (req, res, next) => {
     next(error);
   } finally {
     client?.release();
+  }
+});
+
+documentsRouter.post("/:id/index-semantic", async (req, res, next) => {
+  const documentId = req.params.id;
+
+  try {
+    // Only index documents belonging to the current workspace.
+    const documentResult = await pool.query<{
+      id: string;
+      filename: string;
+      storage_key: string;
+    }>(
+      `
+        SELECT id, filename, storage_key
+        FROM documents
+        WHERE id = $1
+          AND workspace_id = $2
+          AND collection = 'workspace'
+      `,
+      [documentId, env.workspaceId],
+    );
+
+    const document = documentResult.rows[0];
+
+    if (!document) {
+      res.status(404).json({ error: "Document not found" });
+      return;
+    }
+
+    // Use the stored basename, not a path supplied by the request.
+    const safeStorageKey = path.basename(document.storage_key);
+    const filePath = path.join(env.uploadDir, safeStorageKey);
+
+    const extension = path.extname(document.filename).toLowerCase();
+
+    const mimeType =
+      extension === ".pdf"
+        ? "application/pdf"
+        : extension === ".docx"
+          ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          : null;
+
+    if (!mimeType) {
+      res.status(400).json({ error: "Unsupported document type" });
+      return;
+    }
+
+    const extracted = await extractDocumentText(filePath, mimeType);
+
+    // Chunk each extracted page separately so citations retain page numbers.
+    let nextIndex = 0;
+
+    const chunks = extracted.pages.flatMap((page) =>
+      semanticChunkText(page.text, 1200, 300).map((chunk) => ({
+        index: nextIndex++,
+        content: chunk.content,
+        pageNumber: page.pageNumber,
+      })),
+    );
+
+    if (chunks.length === 0) {
+      res.status(400).json({
+        error: "No text was extracted from this document",
+      });
+      return;
+    }
+
+    // Generate embeddings before starting the replacement transaction.
+    const embeddings = await embedTexts(chunks.map((chunk) => chunk.content));
+
+    const client = await pool.connect();
+
+    try {
+      await client.query("BEGIN");
+
+      // Replace only this document's semantic version.
+      // Fixed chunks are left untouched.
+      await client.query(
+        `
+          DELETE FROM chunks
+          WHERE document_id = $1
+            AND workspace_id = $2
+            AND chunking_strategy = 'semantic'
+        `,
+        [documentId, env.workspaceId],
+      );
+
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        const embedding = embeddings[i];
+
+        if (!chunk) {
+          throw new Error(`Missing chunk at index ${i}`);
+        }
+
+        if (!embedding) {
+          throw new Error(`Missing embedding for chunk ${i}`);
+        }
+
+        const contentHash = createHash("sha256")
+          .update(chunk.content)
+          .digest("hex");
+
+        await client.query(
+          `
+            INSERT INTO chunks (
+              document_id,
+              workspace_id,
+              collection,
+              chunk_index,
+              content,
+              page_number,
+              content_hash,
+              embedding,
+              chunking_strategy
+            )
+            VALUES ($1, $2, 'workspace', $3, $4, $5, $6, $7::vector, 'semantic')
+          `,
+          [
+            documentId,
+            env.workspaceId,
+            chunk.index,
+            chunk.content,
+            chunk.pageNumber,
+            contentHash,
+            JSON.stringify(embedding),
+          ],
+        );
+      }
+
+      await client.query("COMMIT");
+
+      res.json({
+        documentId,
+        strategy: "semantic",
+        chunksCreated: chunks.length,
+      });
+    } catch (error) {
+      await client.query("ROLLBACK");
+      throw error;
+    } finally {
+      client.release();
+    }
+  } catch (error) {
+    next(error);
   }
 });

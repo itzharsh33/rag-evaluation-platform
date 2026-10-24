@@ -3,6 +3,8 @@ import { Router } from "express";
 import { env } from "../config/env.js";
 import { pool } from "../db/pool.js";
 import { openai } from "../services/openai.js";
+import { retrieveChunks } from "../services/retrieval/index.js";
+import type { RetrievalStrategy } from "../services/retrieval/types.js";
 
 export const ragRouter = Router();
 
@@ -60,6 +62,28 @@ ragRouter.post("/query", async (req, res, next) => {
 
     const topK = requestedTopK;
 
+    const supportedStrategies: RetrievalStrategy[] = [
+  "fixed_vector",
+  "semantic_vector",
+  "hybrid_rrf",
+  "vector_rerank",
+];
+
+const requestedStrategy = req.body?.strategy;
+
+const strategy: RetrievalStrategy =
+  requestedStrategy === undefined
+    ? "fixed_vector"
+    : requestedStrategy;
+
+if (!supportedStrategies.includes(strategy)) {
+  res.status(400).json({
+    error: "Invalid retrieval strategy",
+    supportedStrategies,
+  });
+  return;
+}
+
     // 3. Generate an embedding for the question.
     const embeddingStartedAt = Date.now();
 
@@ -77,37 +101,22 @@ ragRouter.post("/query", async (req, res, next) => {
 
     const embeddingMs = Date.now() - embeddingStartedAt;
 
-    // 4. Search ALL chunks in the configured workspace.
-    // The client does not provide document IDs.
-    const vector = `[${questionEmbedding.join(",")}]`;
-    const retrievalStartedAt = Date.now();
+    // 4. Retrieve chunks using the selected strategy.
+const retrievalStartedAt = Date.now();
 
-    const result = await pool.query<RetrievedChunk>(
-      `
-        SELECT
-          c.id::text AS chunk_id,
-          c.document_id::text AS document_id,
-          d.filename,
-          c.content,
-          c.page_number,
-          c.embedding <=> $1::vector AS distance
-        FROM chunks AS c
-        INNER JOIN documents AS d
-          ON d.id = c.document_id
-        WHERE c.workspace_id = $2
-          AND d.workspace_id = $2
-          AND c.embedding IS NOT NULL
-        ORDER BY c.embedding <=> $1::vector ASC
-        LIMIT $3
-      `,
-      [vector, env.workspaceId, topK],
-    );
+const retrievedChunks = await retrieveChunks({
+  question,
+  embedding: questionEmbedding,
+  workspaceId: env.workspaceId,
+  topK,
+  strategy,
+});
 
-    const retrievalMs = Date.now() - retrievalStartedAt;
-    const chunks = result.rows;
+const retrievalMs = Date.now() - retrievalStartedAt;
+    
 
     // 5. Abstain if no relevant chunks were found.
-    if (chunks.length === 0) {
+    if (retrievedChunks.length === 0) {
       res.json({
         answer: INSUFFICIENT_EVIDENCE,
         abstained: true,
@@ -125,25 +134,28 @@ ragRouter.post("/query", async (req, res, next) => {
       return;
     }
 
-    // 6. Build source-labelled evidence for the LLM.
-    const sources = chunks.map((chunk, index) => ({
-      citation: `S${index + 1}`,
-      chunkId: chunk.chunk_id,
-      documentId: chunk.document_id,
-      filename: chunk.filename,
-      pageNumber: chunk.page_number,
-      content: chunk.content,
-      similarity: 1 - Number(chunk.distance),
-    }));
+const sources = retrievedChunks.map((chunk, index) => ({
+  id: `S${index + 1}`,
+  chunkId: chunk.chunkId,
+  documentId: chunk.documentId,
+  filename: chunk.filename,
+  pageNumber: chunk.pageNumber,
+  content: chunk.content,
+  similarity: chunk.similarity,
+  retrievalScore: chunk.retrievalScore,
+  rank: chunk.rank,
+}));
 
-    const context = sources
-      .map(
-        (source) =>
-          `[${source.citation}] File: ${source.filename}\n` +
-          `Page: ${source.pageNumber ?? "Unknown"}\n` +
-          `Evidence:\n${source.content}`,
-      )
-      .join("\n\n---\n\n");
+const context = sources
+  .map(
+    (source) =>
+      `[${source.id}] ${source.filename}` +
+      (source.pageNumber != null
+        ? ` (page ${source.pageNumber})`
+        : "") +
+      `\n${source.content}`,
+  )
+  .join("\n\n");
 
     // 7. Generate an answer grounded in retrieved evidence.
     const generationStartedAt = Date.now();
@@ -196,6 +208,7 @@ ${INSUFFICIENT_EVIDENCE}
     res.json({
       answer,
       abstained,
+      strategy,
       sources: abstained ? [] : sources.map(
         ({ content, ...source }) => source,
       ),

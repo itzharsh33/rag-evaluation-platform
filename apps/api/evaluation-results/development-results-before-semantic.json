@@ -1,0 +1,2682 @@
+{
+  "datasetVersion": "postgresql-v1",
+  "mode": "development",
+  "createdAt": "2026-10-23T09:14:08.700Z",
+  "questionCount": 40,
+  "summaries": [
+    {
+      "strategy": "fixed_vector",
+      "questionCount": 40,
+      "recallAt5": 0.825,
+      "mrr": 0.8279166666666665,
+      "expectedFactCoverage": 0.07142857142857142,
+      "averageLatencyMs": 2853.05
+    },
+    {
+      "strategy": "semantic_vector",
+      "questionCount": 40,
+      "recallAt5": 0,
+      "mrr": 0,
+      "expectedFactCoverage": 0,
+      "averageLatencyMs": 466.35
+    },
+    {
+      "strategy": "hybrid_rrf",
+      "questionCount": 40,
+      "recallAt5": 0.8,
+      "mrr": 0.7745833333333333,
+      "expectedFactCoverage": 0.07142857142857142,
+      "averageLatencyMs": 2762.525
+    },
+    {
+      "strategy": "vector_rerank",
+      "questionCount": 40,
+      "recallAt5": 0.8375,
+      "mrr": 0.81125,
+      "expectedFactCoverage": 0.0630952380952381,
+      "averageLatencyMs": 2728.25
+    }
+  ],
+  "results": [
+    {
+      "questionId": "pg18-001",
+      "strategy": "fixed_vector",
+      "answer": "Database constraints in PostgreSQL solve several problems related to data integrity and validation. They allow for:\n\n1. **Limiting Data Types**: Constraints provide a way to enforce specific rules on the data that can be stored in a table, beyond what standard data types offer. For example, a constraint can ensure that a column only accepts positive values, which is not inherently enforced by data types alone [S1].\n\n2. **Ensuring Uniqueness**: Constraints can enforce uniqueness across rows, such as ensuring that there is only one row for each product number in a product table. This is achieved through primary keys and unique constraints [S1].\n\n3. **Cross-Column and Cross-Row Validation**: Constraints can validate data in relation to other columns or rows, ensuring that certain conditions are met. For instance, a check constraint can ensure that a product's price is greater than its discounted price [S5].\n\n4. **Error Handling**: If a user attempts to store data that violates a constraint, PostgreSQL raises an error, preventing invalid data from being entered into the database [S1].\n\nOverall, constraints give users control over the data in their tables, ensuring that it adheres to specified rules and maintains integrity.",
+      "retrievedChunkIds": [
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "4f8ef0d2-99d4-41a4-bd23-ff7acae66284",
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 5953,
+      "retrievalMs": 20,
+      "generationMs": 4380
+    },
+    {
+      "questionId": "pg18-001",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 432,
+      "retrievalMs": 33,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-001",
+      "strategy": "hybrid_rrf",
+      "answer": "Database constraints in PostgreSQL solve several problems related to data integrity and validation. They allow for:\n\n1. **Limiting Data Types**: Constraints provide a way to enforce specific rules on the data that can be stored in a table, which is particularly useful when standard data types are too coarse. For example, a constraint can ensure that a column only accepts positive values, which is not inherently enforced by data types alone [S1].\n\n2. **Ensuring Uniqueness**: Constraints can enforce uniqueness across rows, such as ensuring that there is only one row for each product number in a product information table. This is achieved through primary keys and unique constraints [S1].\n\n3. **Cross-Column and Cross-Row Validation**: Constraints can validate data based on relationships between different columns or rows. For instance, check constraints can ensure that one column's value is greater than another's, or that certain conditions are met across multiple columns [S5].\n\n4. **Raising Errors on Violations**: If a user attempts to store data that violates a constraint, PostgreSQL raises an error, preventing invalid data from being entered into the database [S1].\n\nOverall, constraints give users control over the data in their tables, ensuring that it adheres to specified rules and maintains integrity.",
+      "retrievedChunkIds": [
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "4f8ef0d2-99d4-41a4-bd23-ff7acae66284",
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 5074,
+      "retrievalMs": 140,
+      "generationMs": 3828
+    },
+    {
+      "questionId": "pg18-001",
+      "strategy": "vector_rerank",
+      "answer": "Database constraints in PostgreSQL solve several problems related to data integrity and validation:\n\n1. **Data Type Limitations**: Constraints allow for more specific data validation than standard data types. For example, while a data type may allow any integer, a constraint can enforce that only positive integers are accepted for a product price column [S1].\n\n2. **Cross-Column and Cross-Row Restrictions**: Constraints enable the enforcement of rules that involve multiple columns or rows. For instance, a UNIQUE constraint can ensure that there is only one row for each product number in a product information table [S1][S2].\n\n3. **Error Prevention**: When a user attempts to store data that violates a constraint, PostgreSQL raises an error, preventing invalid data from being entered into the database [S1].\n\n4. **Primary Key Enforcement**: Constraints like primary keys ensure that each row in a table can be uniquely identified, which is essential for relational database integrity [S3].\n\n5. **Consistency Guarantees**: Constraints help maintain data consistency by enforcing rules that must be followed during data insertion and updates, although certain constraints have limitations regarding referencing other table data [S4].\n\nOverall, constraints provide a mechanism to enforce rules and maintain the integrity of the data stored in PostgreSQL databases.",
+      "retrievedChunkIds": [
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "5247853c-aa74-4cf2-8a82-4aff15db3944"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 4480,
+      "retrievalMs": 22,
+      "generationMs": 3941
+    },
+    {
+      "questionId": "pg18-002",
+      "strategy": "fixed_vector",
+      "answer": "The CHECK (price > 0) constraint is not enough to prevent a NULL price because a CHECK constraint is satisfied if the check expression evaluates to true or to NULL. This means that if the price is NULL, the CHECK constraint does not trigger an error, as NULL is not considered to violate the condition. Therefore, to ensure that a column does not contain NULL values, a NOT NULL constraint must be used in addition to the CHECK constraint [S3][S4].",
+      "retrievedChunkIds": [
+        "706ef23d-9821-4204-b9d5-f37293adbd83",
+        "e6abef8e-8a71-4ab0-ad34-6e6cc81819e7",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.25,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2797,
+      "retrievalMs": 5,
+      "generationMs": 2357
+    },
+    {
+      "questionId": "pg18-002",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 537,
+      "retrievalMs": 4,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-002",
+      "strategy": "hybrid_rrf",
+      "answer": "The CHECK (price > 0) constraint is not enough to prevent a NULL price because a CHECK constraint is satisfied if the check expression evaluates to true or to NULL. This means that if the price is NULL, the CHECK constraint does not trigger an error, as NULL is not considered to violate the condition. Therefore, to ensure that a column does not contain NULL values, a NOT NULL constraint must be used in addition to the CHECK constraint [S3][S4].",
+      "retrievedChunkIds": [
+        "706ef23d-9821-4204-b9d5-f37293adbd83",
+        "e6abef8e-8a71-4ab0-ad34-6e6cc81819e7",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.25,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2627,
+      "retrievalMs": 28,
+      "generationMs": 2193
+    },
+    {
+      "questionId": "pg18-002",
+      "strategy": "vector_rerank",
+      "answer": "The CHECK (price > 0) constraint is not enough to prevent a NULL price because a CHECK constraint is satisfied if the check expression evaluates to true or the null value. Therefore, if the price is NULL, the CHECK constraint does not trigger, allowing NULL values to be present in the column. To ensure that a column does not contain NULL values, a NOT NULL constraint must be used instead [S1][S3].",
+      "retrievedChunkIds": [
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "706ef23d-9821-4204-b9d5-f37293adbd83",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "e6abef8e-8a71-4ab0-ad34-6e6cc81819e7"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2776,
+      "retrievalMs": 4,
+      "generationMs": 2317
+    },
+    {
+      "questionId": "pg18-003",
+      "strategy": "fixed_vector",
+      "answer": "A PostgreSQL CHECK constraint can be given an explicit name by using the keyword `CONSTRAINT` followed by an identifier and then the constraint definition. For example, the syntax is as follows:\n\n```sql\nCREATE TABLE products (\n    product_no integer,\n    name text,\n    price numeric CONSTRAINT positive_price CHECK (price > 0)\n);\n```\n\nIf you do not specify a constraint name, the system will automatically choose a name for you [S3].",
+      "retrievedChunkIds": [
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37",
+        "e6abef8e-8a71-4ab0-ad34-6e6cc81819e7",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2343,
+      "retrievalMs": 5,
+      "generationMs": 2016
+    },
+    {
+      "questionId": "pg18-003",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 413,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-003",
+      "strategy": "hybrid_rrf",
+      "answer": "A PostgreSQL CHECK constraint can be given an explicit name by using the keyword CONSTRAINT followed by an identifier and then the constraint definition. For example, the syntax is as follows:\n\n```sql\nCREATE TABLE products (\n    product_no integer,\n    name text,\n    price numeric CONSTRAINT positive_price CHECK (price > 0)\n);\n```\n\nIf you do not specify a constraint name, the system will automatically choose one for you [S3].",
+      "retrievedChunkIds": [
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37",
+        "e6abef8e-8a71-4ab0-ad34-6e6cc81819e7",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2479,
+      "retrievalMs": 24,
+      "generationMs": 2120
+    },
+    {
+      "questionId": "pg18-003",
+      "strategy": "vector_rerank",
+      "answer": "A PostgreSQL CHECK constraint can be given an explicit name by using the keyword `CONSTRAINT` followed by an identifier and then the constraint definition. For example, the syntax is as follows:\n\n```sql\nCREATE TABLE products (\n    product_no integer,\n    name text,\n    price numeric CONSTRAINT positive_price CHECK (price > 0)\n);\n```\n\nIf you do not specify a constraint name in this way, the system will automatically choose a name for you [S5].",
+      "retrievedChunkIds": [
+        "347aec23-e2e4-436b-b9f6-b89d2799135f",
+        "fa3015d6-5c76-430a-8b71-1f6cff675147",
+        "706ef23d-9821-4204-b9d5-f37293adbd83",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.2,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3064,
+      "retrievalMs": 4,
+      "generationMs": 2674
+    },
+    {
+      "questionId": "pg18-005",
+      "strategy": "fixed_vector",
+      "answer": "When a primary key is added in PostgreSQL, it automatically creates a unique B-tree index on the column or group of columns listed in the primary key and forces the column(s) to be marked as NOT NULL [S1].",
+      "retrievedChunkIds": [
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "12e2b779-ce16-47e5-b2ea-7dfb7a9e17a3"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2333,
+      "retrievalMs": 2,
+      "generationMs": 1835
+    },
+    {
+      "questionId": "pg18-005",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 411,
+      "retrievalMs": 1,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-005",
+      "strategy": "hybrid_rrf",
+      "answer": "When a primary key is added in PostgreSQL, it automatically creates a unique B-tree index on the column or group of columns listed in the primary key and forces the column(s) to be marked NOT NULL [S1].",
+      "retrievedChunkIds": [
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "12e2b779-ce16-47e5-b2ea-7dfb7a9e17a3"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2965,
+      "retrievalMs": 23,
+      "generationMs": 2515
+    },
+    {
+      "questionId": "pg18-005",
+      "strategy": "vector_rerank",
+      "answer": "When a primary key is added in PostgreSQL, it automatically creates a unique B-tree index on the column or group of columns listed in the primary key and forces the column(s) to be marked NOT NULL [S1].",
+      "retrievedChunkIds": [
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "c2c7b164-4862-4b5b-9c1a-506ee0584ab8",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1948,
+      "retrievalMs": 7,
+      "generationMs": 1585
+    },
+    {
+      "questionId": "pg18-006",
+      "strategy": "fixed_vector",
+      "answer": "A foreign key ensures that the values in the `orders.product_no` column must match the values appearing in the `products.product_no` column. This maintains referential integrity between the two tables, meaning that it is impossible to create orders with non-NULL `product_no` entries that do not exist in the `products` table [S1][S3].",
+      "retrievedChunkIds": [
+        "a7df4b60-5752-4743-ba28-cb4a2403f10e",
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8",
+        "46c8c9de-b0d8-4b52-b4d7-ab3675be79f0",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "caf25392-8a28-4593-8fa7-fc3142226612"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2566,
+      "retrievalMs": 27,
+      "generationMs": 2169
+    },
+    {
+      "questionId": "pg18-006",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 352,
+      "retrievalMs": 25,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-006",
+      "strategy": "hybrid_rrf",
+      "answer": "A foreign key ensures that the values in the `orders.product_no` column must match the values appearing in the `products.product_no` column. This maintains referential integrity between the two tables, meaning that it is impossible to create orders with non-NULL `product_no` entries that do not exist in the `products` table [S1][S3].",
+      "retrievedChunkIds": [
+        "a7df4b60-5752-4743-ba28-cb4a2403f10e",
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8",
+        "46c8c9de-b0d8-4b52-b4d7-ab3675be79f0",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "caf25392-8a28-4593-8fa7-fc3142226612"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2106,
+      "retrievalMs": 31,
+      "generationMs": 1717
+    },
+    {
+      "questionId": "pg18-006",
+      "strategy": "vector_rerank",
+      "answer": "A foreign key ensures that the values in the referencing table (in this case, orders.product_no) must match the values in the referenced table (products.product_no). This maintains referential integrity between the two tables, meaning that orders can only be created for products that actually exist in the products table. Therefore, it is impossible to create orders with non-NULL product_no entries that do not appear in the products table [S2][S3].",
+      "retrievedChunkIds": [
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8",
+        "46c8c9de-b0d8-4b52-b4d7-ab3675be79f0",
+        "a7df4b60-5752-4743-ba28-cb4a2403f10e",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "caf25392-8a28-4593-8fa7-fc3142226612"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2982,
+      "retrievalMs": 13,
+      "generationMs": 2547
+    },
+    {
+      "questionId": "pg18-007",
+      "strategy": "fixed_vector",
+      "answer": "The difference between ON DELETE RESTRICT and ON DELETE CASCADE is as follows:\n\n1. **ON DELETE RESTRICT**: This setting prevents the deletion of a referenced row if there are any rows in the referencing table that depend on it. It does not allow the deletion to proceed if it would violate the foreign key constraint, ensuring that the integrity of the relationship is maintained. This means that if you try to delete a row that is still referenced, the operation will fail [S1].\n\n2. **ON DELETE CASCADE**: This setting allows for automatic deletion of rows in the referencing table when the referenced row is deleted. If a referenced row is deleted, all rows that reference it will also be automatically deleted, which is useful when the referencing rows are considered components of the referenced row [S1][S2].\n\nIn summary, ON DELETE RESTRICT prevents deletion if there are dependencies, while ON DELETE CASCADE automatically deletes dependent rows when the referenced row is deleted.",
+      "retrievedChunkIds": [
+        "5247853c-aa74-4cf2-8a82-4aff15db3944",
+        "61c12771-040e-4af8-ab55-9af1c0726c53",
+        "5f352cbf-d5b9-4665-9baa-29d268baaa39",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3468,
+      "retrievalMs": 5,
+      "generationMs": 3145
+    },
+    {
+      "questionId": "pg18-007",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 421,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-007",
+      "strategy": "hybrid_rrf",
+      "answer": "The difference between ON DELETE RESTRICT and ON DELETE CASCADE is as follows:\n\n1. **ON DELETE RESTRICT**: This setting prevents the deletion of a referenced row if there are any rows in the referencing table that depend on it. It does not allow the deletion to proceed if it would violate the foreign key constraint, and it does not defer the check until later in the transaction [S3].\n\n2. **ON DELETE CASCADE**: This setting specifies that when a referenced row is deleted, all rows in the referencing table that reference it should be automatically deleted as well. This is useful when the referencing rows are considered components of the referenced row and cannot exist independently [S1][S3].",
+      "retrievedChunkIds": [
+        "61c12771-040e-4af8-ab55-9af1c0726c53",
+        "5f352cbf-d5b9-4665-9baa-29d268baaa39",
+        "5247853c-aa74-4cf2-8a82-4aff15db3944",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3061,
+      "retrievalMs": 26,
+      "generationMs": 2641
+    },
+    {
+      "questionId": "pg18-007",
+      "strategy": "vector_rerank",
+      "answer": "The difference between ON DELETE RESTRICT and ON DELETE CASCADE is as follows:\n\n1. **ON DELETE RESTRICT**: This setting prevents the deletion of a referenced row if there are any rows in the referencing table that depend on it. It does not allow the check to be deferred until later in the transaction, meaning that if there are dependencies, the deletion will be blocked [S2].\n\n2. **ON DELETE CASCADE**: This setting specifies that when a referenced row is deleted, all rows in the referencing table that reference it should be automatically deleted as well. This is useful when the referencing rows are considered components of the referenced row and cannot exist independently [S2][S3]. \n\nIn summary, RESTRICT blocks the deletion if dependencies exist, while CASCADE automatically deletes dependent rows.",
+      "retrievedChunkIds": [
+        "5f352cbf-d5b9-4665-9baa-29d268baaa39",
+        "5247853c-aa74-4cf2-8a82-4aff15db3944",
+        "61c12771-040e-4af8-ab55-9af1c0726c53",
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "02f7cc6b-c0b5-4fa6-a59f-2d643bf722e8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3399,
+      "retrievalMs": 9,
+      "generationMs": 2966
+    },
+    {
+      "questionId": "pg18-009",
+      "strategy": "fixed_vector",
+      "answer": "A generated column in PostgreSQL is a special column that is always computed from other columns, similar to how a view operates for tables. There are two types of generated columns: stored and virtual. A stored generated column is computed when it is written (during insert or update) and occupies storage like a normal column, while a virtual generated column occupies no storage and is computed when it is read. By default, generated columns are virtual, but they can be explicitly defined as stored or virtual using the keywords VIRTUAL or STORED in the table creation statement [S1].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "99abfe57-f9cd-4b5f-8c74-15532d782a80",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.3333333333333333,
+      "latencyMs": 2889,
+      "retrievalMs": 29,
+      "generationMs": 2297
+    },
+    {
+      "questionId": "pg18-009",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 499,
+      "retrievalMs": 5,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-009",
+      "strategy": "hybrid_rrf",
+      "answer": "A generated column in PostgreSQL is a special column that is always computed from other columns, similar to how a view operates for tables. There are two types of generated columns: stored and virtual. A stored generated column is computed when it is written (during insert or update) and occupies storage like a normal column, while a virtual generated column occupies no storage and is computed when it is read. By default, generated columns are virtual, but they can be explicitly defined as stored or virtual using the keywords VIRTUAL or STORED in the table creation statement [S1].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "99abfe57-f9cd-4b5f-8c74-15532d782a80",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.3333333333333333,
+      "latencyMs": 2835,
+      "retrievalMs": 25,
+      "generationMs": 2509
+    },
+    {
+      "questionId": "pg18-009",
+      "strategy": "vector_rerank",
+      "answer": "A generated column in PostgreSQL is a special column that is always computed from other columns, similar to how a view operates for tables. There are two types of generated columns: stored and virtual. A stored generated column is computed when it is written (inserted or updated) and occupies storage like a normal column, while a virtual generated column occupies no storage and is computed when it is read. By default, a generated column is virtual, but it can be explicitly defined as stored or virtual using the keywords VIRTUAL or STORED in the table creation statement [S1].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "99abfe57-f9cd-4b5f-8c74-15532d782a80",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.3333333333333333,
+      "latencyMs": 3293,
+      "retrievalMs": 3,
+      "generationMs": 2690
+    },
+    {
+      "questionId": "pg18-010",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL generated columns are virtual by default. To make a generated column stored, the keywords VIRTUAL or STORED must be used explicitly [S1][S2].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2169,
+      "retrievalMs": 3,
+      "generationMs": 1670
+    },
+    {
+      "questionId": "pg18-010",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 398,
+      "retrievalMs": 8,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-010",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL generated columns are virtual by default. To make a generated column stored, the keywords VIRTUAL or STORED must be used explicitly [S1][S2].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1874,
+      "retrievalMs": 32,
+      "generationMs": 1456
+    },
+    {
+      "questionId": "pg18-010",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL generated columns are virtual by default. To make a generated column stored, the keywords VIRTUAL or STORED must be used explicitly [S1][S2].",
+      "retrievedChunkIds": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2023,
+      "retrievalMs": 6,
+      "generationMs": 1628
+    },
+    {
+      "questionId": "pg18-011",
+      "strategy": "fixed_vector",
+      "answer": "No, an application cannot directly insert or update a generated column's value. A generated column cannot be written to directly, and in INSERT or UPDATE commands, a value cannot be specified for a generated column. The keyword DEFAULT may be specified, but the generated column is updated automatically whenever the row changes and cannot be overridden by direct assignment [S3].",
+      "retrievedChunkIds": [
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50",
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "e5d2af80-f2fc-4ee8-b8aa-acfd9d80e28a",
+        "8f4c8c2e-757a-435d-a6cc-f5f6b3f6ce56"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2633,
+      "retrievalMs": 5,
+      "generationMs": 2243
+    },
+    {
+      "questionId": "pg18-011",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 607,
+      "retrievalMs": 21,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-011",
+      "strategy": "hybrid_rrf",
+      "answer": "No, an application cannot directly insert or update a generated column's value. A generated column cannot be written to directly, and in INSERT or UPDATE commands, a value cannot be specified for a generated column. The keyword DEFAULT may be specified, but the generated column's value is automatically calculated based on its generation expression whenever the row changes [S1].",
+      "retrievedChunkIds": [
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "a8b5e7e4-c58e-46b0-8a2e-8c6685a8836f",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2364,
+      "retrievalMs": 29,
+      "generationMs": 1903
+    },
+    {
+      "questionId": "pg18-011",
+      "strategy": "vector_rerank",
+      "answer": "No, an application cannot directly insert or update a generated column's value. A generated column cannot be written to directly, and in INSERT or UPDATE commands, a value cannot be specified for a generated column. The keyword DEFAULT may be specified, but the generated column itself cannot be overridden [S1].",
+      "retrievedChunkIds": [
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50",
+        "a8b5e7e4-c58e-46b0-8a2e-8c6685a8836f"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2819,
+      "retrievalMs": 7,
+      "generationMs": 2398
+    },
+    {
+      "questionId": "pg18-013",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL documentation lists the following built-in or available index types:\n\n1. B-tree\n2. Hash\n3. GiST\n4. SP-GiST\n5. GIN\n6. BRIN\n7. Bloom (extension)\n\nThese index types utilize different algorithms suited for various types of indexable clauses [S1].",
+      "retrievedChunkIds": [
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "ac212c61-4138-402f-8fb5-2848c37df5a7"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.8571428571428571,
+      "latencyMs": 2614,
+      "retrievalMs": 7,
+      "generationMs": 2024
+    },
+    {
+      "questionId": "pg18-013",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 439,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-013",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL documentation lists the following built-in or available index types:\n\n1. B-tree\n2. Hash\n3. GiST\n4. SP-GiST\n5. GIN\n6. BRIN\n7. Bloom (extension)\n\nThese index types utilize different algorithms suited for various types of indexable clauses [S3].",
+      "retrievedChunkIds": [
+        "3111f596-1be5-4515-a848-95501659e8bb",
+        "760bc80a-4597-40e4-8509-7d293ddef793",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "a67cf648-d01c-44af-bd10-6501df0912e9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0.8571428571428571,
+      "latencyMs": 2306,
+      "retrievalMs": 18,
+      "generationMs": 1922
+    },
+    {
+      "questionId": "pg18-013",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL documentation lists the following built-in or available index types:\n\n1. B-tree\n2. Hash\n3. GiST\n4. SP-GiST\n5. GIN\n6. BRIN\n7. Bloom (extension)\n\nThese index types utilize different algorithms suited for various types of indexable clauses [S1].",
+      "retrievedChunkIds": [
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "ac212c61-4138-402f-8fb5-2848c37df5a7",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.8571428571428571,
+      "latencyMs": 2837,
+      "retrievalMs": 32,
+      "generationMs": 2080
+    },
+    {
+      "questionId": "pg18-014",
+      "strategy": "fixed_vector",
+      "answer": "B-tree indexes are especially suited for the following kinds of comparisons:\n\n1. **Equality and Range Queries**: B-trees can handle equality comparisons (using operators like =), as well as range queries (using operators such as <, <=, >=, >) [S3].\n\n2. **Combinations of Operators**: They can implement combinations of these operators, such as BETWEEN and IN [S1].\n\n3. **IS NULL and IS NOT NULL Conditions**: B-tree indexes can be used with IS NULL or IS NOT NULL conditions on an indexed column [S1].\n\n4. **Pattern Matching**: They can be utilized for pattern matching with the LIKE and ~ operators, provided the pattern is a constant and anchored to the beginning of the string (e.g., col LIKE 'foo%') [S1].\n\n5. **Retrieving Data in Sorted Order**: B-tree indexes can also retrieve data in sorted order, which can be helpful in certain queries [S2].",
+      "retrievedChunkIds": [
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "087c1eef-1608-47e5-93b9-9fdd572b2843",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.6666666666666666,
+      "latencyMs": 3479,
+      "retrievalMs": 31,
+      "generationMs": 3105
+    },
+    {
+      "questionId": "pg18-014",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 459,
+      "retrievalMs": 7,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-014",
+      "strategy": "hybrid_rrf",
+      "answer": "B-tree indexes are especially suited for the following kinds of comparisons:\n\n1. **Equality and Range Queries**: B-trees can handle equality comparisons (using the equal operator `=`) and range queries (using operators such as `<`, `<=`, `>=`, `>`). This includes constructs like BETWEEN and IN, which can also be implemented with a B-tree index search [S3].\n\n2. **IS NULL and IS NOT NULL Conditions**: B-tree indexes can be used for conditions checking if an indexed column is NULL or NOT NULL [S1].\n\n3. **Pattern Matching**: B-tree indexes can support pattern matching with the LIKE and ~ operators, provided the pattern is a constant and anchored to the beginning of the string (e.g., `col LIKE 'foo%'` or `col ~ '^foo'`). However, this is not applicable for patterns like `col LIKE '%bar'` [S1].\n\n4. **Retrieving Data in Sorted Order**: B-tree indexes can be used to retrieve data in sorted order, which can be helpful even though it may not always be faster than a simple scan and sort [S1][S2].\n\nIn summary, B-tree indexes are well-suited for equality comparisons, range queries, IS NULL checks, certain pattern matching, and retrieving sorted data.",
+      "retrievedChunkIds": [
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "087c1eef-1608-47e5-93b9-9fdd572b2843",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.6666666666666666,
+      "latencyMs": 4705,
+      "retrievalMs": 24,
+      "generationMs": 4275
+    },
+    {
+      "questionId": "pg18-014",
+      "strategy": "vector_rerank",
+      "answer": "B-tree indexes are especially suited for handling equality and range queries on data that can be sorted into some ordering. Specifically, they can be used with the following types of comparisons:\n\n1. Equality comparisons using the operators: =, and combinations of these operators such as BETWEEN and IN.\n2. Range comparisons using the operators: <, <=, >=, >.\n3. IS NULL or IS NOT NULL conditions on an indexed column.\n4. Pattern matching with the operators LIKE and ~, provided the pattern is a constant and anchored to the beginning of the string (e.g., col LIKE 'foo%').\n\nB-tree indexes can also be used to retrieve data in sorted order, although this may not always be faster than a simple scan and sort [S2][S3].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "087c1eef-1608-47e5-93b9-9fdd572b2843",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0.3333333333333333,
+      "latencyMs": 3271,
+      "retrievalMs": 35,
+      "generationMs": 2856
+    },
+    {
+      "questionId": "pg18-015",
+      "strategy": "fixed_vector",
+      "answer": "Yes, a B-tree index can help a query that needs rows in sorted order. B-tree indexes can be used to retrieve data in sorted order, although this may not always be faster than a simple scan and sort. However, it is often helpful for such queries [S1][S2].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "03b054fc-37b7-4776-8171-f10877088e35",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2462,
+      "retrievalMs": 8,
+      "generationMs": 1909
+    },
+    {
+      "questionId": "pg18-015",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 508,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-015",
+      "strategy": "hybrid_rrf",
+      "answer": "Yes, a B-tree index can help a query that needs rows in sorted order. B-tree indexes can be used to retrieve data in sorted order, although this may not always be faster than a simple scan and sort. However, it is often helpful for such queries [S1][S2].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "03b054fc-37b7-4776-8171-f10877088e35",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1982,
+      "retrievalMs": 33,
+      "generationMs": 1530
+    },
+    {
+      "questionId": "pg18-015",
+      "strategy": "vector_rerank",
+      "answer": "Yes, a B-tree index can help a query that needs rows in sorted order. B-tree indexes can be used to retrieve data in sorted order, which is often helpful, although it may not always be faster than a simple scan and sort [S1][S2].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "03b054fc-37b7-4776-8171-f10877088e35",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1901,
+      "retrievalMs": 30,
+      "generationMs": 1545
+    },
+    {
+      "questionId": "pg18-016",
+      "strategy": "fixed_vector",
+      "answer": "A PostgreSQL Hash index stores a 32-bit hash code derived from the value of the indexed column. This type of index can only handle simple equality comparisons, meaning it is used when an indexed column is involved in a comparison using the equal operator (=) [S2].",
+      "retrievedChunkIds": [
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 1981,
+      "retrievalMs": 16,
+      "generationMs": 1638
+    },
+    {
+      "questionId": "pg18-016",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 391,
+      "retrievalMs": 5,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-016",
+      "strategy": "hybrid_rrf",
+      "answer": "A PostgreSQL Hash index stores a 32-bit hash code derived from the value of the indexed column. This type of index can only handle simple equality comparisons, and the query planner will consider using a hash index when an indexed column is involved in a comparison using the equal operator (=) [S1].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 2861,
+      "retrievalMs": 22,
+      "generationMs": 2421
+    },
+    {
+      "questionId": "pg18-016",
+      "strategy": "vector_rerank",
+      "answer": "A PostgreSQL Hash index stores a 32-bit hash code derived from the value of the indexed column. This type of index can only handle simple equality comparisons, and the query planner will consider using a hash index when an indexed column is involved in a comparison using the equal operator (=) [S1].",
+      "retrievedChunkIds": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "2b59e339-9714-4a38-aede-3fe3a34388d2"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 2247,
+      "retrievalMs": 10,
+      "generationMs": 1834
+    },
+    {
+      "questionId": "pg18-017",
+      "strategy": "fixed_vector",
+      "answer": "A GIN index is particularly appropriate for data values that contain multiple component values, such as arrays. It is designed to efficiently handle queries that test for the presence of specific component values, as it contains a separate entry for each component value [S1].",
+      "retrievedChunkIds": [
+        "ac212c61-4138-402f-8fb5-2848c37df5a7",
+        "3111f596-1be5-4515-a848-95501659e8bb",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "760bc80a-4597-40e4-8509-7d293ddef793"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2048,
+      "retrievalMs": 4,
+      "generationMs": 1630
+    },
+    {
+      "questionId": "pg18-017",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 535,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-017",
+      "strategy": "hybrid_rrf",
+      "answer": "A GIN index is particularly appropriate for data values that contain multiple component values, such as arrays. It is designed to efficiently handle queries that test for the presence of specific component values, as it contains a separate entry for each component value [S1].",
+      "retrievedChunkIds": [
+        "ac212c61-4138-402f-8fb5-2848c37df5a7",
+        "3111f596-1be5-4515-a848-95501659e8bb",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "760bc80a-4597-40e4-8509-7d293ddef793"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2223,
+      "retrievalMs": 24,
+      "generationMs": 1865
+    },
+    {
+      "questionId": "pg18-017",
+      "strategy": "vector_rerank",
+      "answer": "A GIN index is particularly appropriate for data values that contain multiple component values, such as arrays. It is designed to efficiently handle queries that test for the presence of specific component values, as it contains a separate entry for each component value [S1].",
+      "retrievedChunkIds": [
+        "ac212c61-4138-402f-8fb5-2848c37df5a7",
+        "5ff8f13b-7877-4bb4-b3e2-04ff4b966ef9",
+        "3111f596-1be5-4515-a848-95501659e8bb",
+        "a67cf648-d01c-44af-bd10-6501df0912e9",
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1854,
+      "retrievalMs": 6,
+      "generationMs": 1506
+    },
+    {
+      "questionId": "pg18-019",
+      "strategy": "fixed_vector",
+      "answer": "No, PostgreSQL's documented hard limits do not always determine the practical limit for an application. The evidence states that practical limits, such as performance limitations or available disk space, may apply before the absolute hard limits are reached [S1].",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2176,
+      "retrievalMs": 5,
+      "generationMs": 1560
+    },
+    {
+      "questionId": "pg18-019",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 449,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-019",
+      "strategy": "hybrid_rrf",
+      "answer": "No, PostgreSQL's documented hard limits do not always determine the practical limit for an application. The evidence states that \"practical limits, such as performance limitations or available disk space may apply before absolute hard limits are reached\" [S1].",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2178,
+      "retrievalMs": 20,
+      "generationMs": 1697
+    },
+    {
+      "questionId": "pg18-019",
+      "strategy": "vector_rerank",
+      "answer": "No, PostgreSQL's documented hard limits do not always determine the practical limit for an application. The evidence indicates that practical limits, such as performance limitations or available disk space, may apply before the absolute hard limits are reached [S1].",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2389,
+      "retrievalMs": 7,
+      "generationMs": 1960
+    },
+    {
+      "questionId": "pg18-020",
+      "strategy": "fixed_vector",
+      "answer": "The documented maximum length of a PostgreSQL identifier is 63 bytes, which can be increased by recompiling PostgreSQL [S2].",
+      "retrievedChunkIds": [
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2027,
+      "retrievalMs": 3,
+      "generationMs": 1682
+    },
+    {
+      "questionId": "pg18-020",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 410,
+      "retrievalMs": 1,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-020",
+      "strategy": "hybrid_rrf",
+      "answer": "The documented maximum length of a PostgreSQL identifier is 63 bytes, which can be increased by recompiling PostgreSQL [S2].",
+      "retrievedChunkIds": [
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2058,
+      "retrievalMs": 29,
+      "generationMs": 1217
+    },
+    {
+      "questionId": "pg18-020",
+      "strategy": "vector_rerank",
+      "answer": "The documented maximum length of a PostgreSQL identifier is 63 bytes. This length can be increased by recompiling PostgreSQL [S2].",
+      "retrievedChunkIds": [
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b",
+        "a4523e3f-5858-4f34-b11c-216f86e47047"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1856,
+      "retrievalMs": 6,
+      "generationMs": 1375
+    },
+    {
+      "questionId": "pg18-021",
+      "strategy": "fixed_vector",
+      "answer": "The effective maximum number of columns in a PostgreSQL table can be reduced by:\n\n1. **Tuple Size Fitting on a Single Page**: The maximum number of columns (1,600) is further limited by the requirement that the tuple must fit within a single 8,192-byte heap page. For example, a tuple with many large data types (like bigint) may exceed this size limit, thus reducing the effective number of columns that can be used [S1][S2].\n\n2. **Dropped Columns**: Columns that have been dropped from the table also contribute to the maximum column limit. Even though their values are marked as null, the space they occupy in the null bitmap still counts against the maximum [S4].\n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3166,
+      "retrievalMs": 4,
+      "generationMs": 2760
+    },
+    {
+      "questionId": "pg18-021",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 520,
+      "retrievalMs": 4,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-021",
+      "strategy": "hybrid_rrf",
+      "answer": "The effective maximum number of columns in a PostgreSQL table can be reduced by:\n\n1. **Tuple Size Fitting on a Single Page**: The maximum number of columns (1,600) is further limited by the requirement that the tuple must fit within a single 8,192-byte heap page. For example, while a tuple of 1,600 integer columns fits within this limit, a tuple of 1,600 bigint columns does not, as it would exceed the page size [S2].\n\n2. **Dropped Columns**: Columns that have been dropped from the table also contribute to the maximum column limit. Even though their values are marked as null, the null bitmap they occupy still counts towards the limit [S4].\n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3353,
+      "retrievalMs": 20,
+      "generationMs": 2949
+    },
+    {
+      "questionId": "pg18-021",
+      "strategy": "vector_rerank",
+      "answer": "The effective maximum number of columns in a PostgreSQL table can be reduced by:\n\n1. The tuple size must fit on a single 8192-byte heap page. For example, while a tuple with 1,600 int columns fits within this limit, a tuple with 1,600 bigint columns does not, as it would require more space than available on a single page [S2].\n\n2. Dropped columns also contribute to the maximum column limit, as they occupy space in the null bitmap, which can reduce the effective number of columns that can be utilized [S5].\n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0",
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3276,
+      "retrievalMs": 5,
+      "generationMs": 2921
+    },
+    {
+      "questionId": "pg18-022",
+      "strategy": "fixed_vector",
+      "answer": "The SQL command used to add a column to an existing PostgreSQL table is:\n\n```sql\nALTER TABLE table_name ADD COLUMN column_name data_type;\n```\n\nFor example, to add a description column to a products table, you would use:\n\n```sql\nALTER TABLE products ADD COLUMN description text;\n```\n\nThis information is supported by the evidence provided in the document [S2].",
+      "retrievedChunkIds": [
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1",
+        "3c7217ab-3f7e-466f-a7b5-0b6497447508",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2884,
+      "retrievalMs": 4,
+      "generationMs": 1856
+    },
+    {
+      "questionId": "pg18-022",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 591,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-022",
+      "strategy": "hybrid_rrf",
+      "answer": "The SQL command used to add a column to an existing PostgreSQL table is:\n\n```sql\nALTER TABLE table_name ADD COLUMN column_name data_type;\n```\n\nFor example, to add a description column to a products table, you would use:\n\n```sql\nALTER TABLE products ADD COLUMN description text;\n```\n\nThis information is supported by the evidence provided in the document [S2].",
+      "retrievedChunkIds": [
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1",
+        "3c7217ab-3f7e-466f-a7b5-0b6497447508",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2251,
+      "retrievalMs": 28,
+      "generationMs": 1896
+    },
+    {
+      "questionId": "pg18-022",
+      "strategy": "vector_rerank",
+      "answer": "The SQL command used to add a column to an existing PostgreSQL table is:\n\n```sql\nALTER TABLE table_name ADD COLUMN column_name data_type;\n```\n\nFor example, to add a column named \"description\" of type \"text\" to a table named \"products,\" you would use:\n\n```sql\nALTER TABLE products ADD COLUMN description text;\n```\n\nThis information is supported by the evidence provided in the document [S4].",
+      "retrievedChunkIds": [
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "3c7217ab-3f7e-466f-a7b5-0b6497447508",
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2925,
+      "retrievalMs": 5,
+      "generationMs": 2481
+    },
+    {
+      "questionId": "pg18-024",
+      "strategy": "fixed_vector",
+      "answer": "When a column is dropped from a table in PostgreSQL, the following occurs:\n\n1. **Data Disappearance**: Whatever data was in the column disappears. This means that all the values stored in that column are removed from the table.\n\n2. **Dropping of Table Constraints**: Any table constraints that involve the column are also dropped. However, if the column is referenced by a foreign key constraint in another table, PostgreSQL will not automatically drop that constraint. To drop everything that depends on the column, including foreign key constraints, you can use the CASCADE option with the drop command [S1]. \n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "84c8e492-7952-4abf-8fc9-8871715c0993",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5",
+        "5f352cbf-d5b9-4665-9baa-29d268baaa39"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3115,
+      "retrievalMs": 5,
+      "generationMs": 2655
+    },
+    {
+      "questionId": "pg18-024",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 345,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-024",
+      "strategy": "hybrid_rrf",
+      "answer": "When a column is dropped from a table in PostgreSQL, the following occurs:\n\n1. **Data Disappearance**: Whatever data was in the column disappears. This means that all the values stored in that column are removed from the table.\n\n2. **Dropping of Table Constraints**: Any table constraints that involve the column are also dropped. However, if the column is referenced by a foreign key constraint in another table, PostgreSQL will not automatically drop that constraint. To drop everything that depends on the column, including foreign key constraints, you can use the CASCADE option with the drop command [S1].\n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "84c8e492-7952-4abf-8fc9-8871715c0993",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5",
+        "5f352cbf-d5b9-4665-9baa-29d268baaa39"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3039,
+      "retrievalMs": 24,
+      "generationMs": 2619
+    },
+    {
+      "questionId": "pg18-024",
+      "strategy": "vector_rerank",
+      "answer": "When a column is dropped from a table in PostgreSQL, the following occurs:\n\n1. **Data Disappearance**: Whatever data was in the column disappears. \n2. **Dropping of Table Constraints**: Any table constraints involving the column are also dropped. However, if the column is referenced by a foreign key constraint in another table, PostgreSQL will not automatically drop that constraint. To drop everything that depends on the column, you can use the CASCADE option with the drop command [S1]. \n\nThus, the data in the column is lost, related constraints are removed unless they are foreign keys in other tables, and those can be dropped with the CASCADE option if desired.",
+      "retrievedChunkIds": [
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "882bc676-d4f0-424d-92b2-84aebd473e11",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "84c8e492-7952-4abf-8fc9-8871715c0993"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3376,
+      "retrievalMs": 9,
+      "generationMs": 2952
+    },
+    {
+      "questionId": "pg18-025",
+      "strategy": "fixed_vector",
+      "answer": "To add or remove a NOT NULL property from an existing column, you can use the following commands:\n\n1. **To add a NOT NULL constraint**: \n   Use the command:\n   ```\n   ALTER TABLE products ALTER COLUMN product_no SET NOT NULL;\n   ```\n   This command will check the table data immediately to ensure it satisfies the constraint before it can be added. If the column already has a NOT NULL constraint, this command will silently do nothing [S4].\n\n2. **To remove a NOT NULL constraint**: \n   Use the command:\n   ```\n   ALTER TABLE products ALTER COLUMN product_no DROP NOT NULL;\n   ```\n   This command will also silently do nothing if the column does not have a NOT NULL constraint [S1].",
+      "retrievedChunkIds": [
+        "84c8e492-7952-4abf-8fc9-8871715c0993",
+        "21fd8999-7558-4f3f-a953-f63bd4a08a2e",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "d4d6b769-1f36-41a9-8ea6-fa30f3349cb1"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3796,
+      "retrievalMs": 5,
+      "generationMs": 3405
+    },
+    {
+      "questionId": "pg18-025",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 747,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-025",
+      "strategy": "hybrid_rrf",
+      "answer": "To add a NOT NULL property to an existing column, you can use the following command:\n\n```\nALTER TABLE products ALTER COLUMN product_no SET NOT NULL;\n```\nThis command will check that the existing data in the column satisfies the NOT NULL constraint before it can be added [S5].\n\nTo remove a NOT NULL property from an existing column, you can use the simplified syntax:\n\n```\nALTER TABLE products ALTER COLUMN product_no DROP NOT NULL;\n```\nThis command will drop the NOT NULL constraint from the specified column [S5].",
+      "retrievedChunkIds": [
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5",
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc",
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1",
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.2,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3141,
+      "retrievalMs": 26,
+      "generationMs": 2791
+    },
+    {
+      "questionId": "pg18-025",
+      "strategy": "vector_rerank",
+      "answer": "To add or remove a NOT NULL property from an existing column in PostgreSQL, you can use the following commands:\n\n1. **To add a NOT NULL constraint**: \n   Use the command:\n   ```\n   ALTER TABLE products ALTER COLUMN product_no SET NOT NULL;\n   ```\n   This command will check that the existing data satisfies the NOT NULL constraint before it can be added. If the column already has a NOT NULL constraint, this command will do nothing silently [S2].\n\n2. **To remove a NOT NULL constraint**: \n   Use the command:\n   ```\n   ALTER TABLE products ALTER COLUMN product_no DROP NOT NULL;\n   ```\n   This command will also do nothing silently if the column does not have a NOT NULL constraint [S1].",
+      "retrievedChunkIds": [
+        "84c8e492-7952-4abf-8fc9-8871715c0993",
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5",
+        "3c7217ab-3f7e-466f-a7b5-0b6497447508",
+        "681e37b7-7905-4d74-9845-34a635d304bf"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3473,
+      "retrievalMs": 9,
+      "generationMs": 3052
+    },
+    {
+      "questionId": "pg18-026",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL provides the following broad numeric type families:\n\n1. **Integer Types**: \n   - smallint (2 bytes)\n   - integer (4 bytes)\n   - bigint (8 bytes)\n\n2. **Floating-Point Types**: \n   - real (4 bytes)\n   - double precision (8 bytes)\n   - float (with precision specifications)\n\n3. **Decimal Types**: \n   - decimal (variable precision)\n   - numeric (variable precision)\n\nThese types allow for a range of numeric values and precision levels, as detailed in the documentation [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "a4523e3f-5858-4f34-b11c-216f86e47047"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 3073,
+      "retrievalMs": 6,
+      "generationMs": 2741
+    },
+    {
+      "questionId": "pg18-026",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 630,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-026",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL provides the following broad numeric type families:\n\n1. **Integer Types**:\n   - smallint (2 bytes)\n   - integer (4 bytes)\n   - bigint (8 bytes)\n\n2. **Floating-Point Types**:\n   - real (4 bytes)\n   - double precision (8 bytes)\n   - float (with precision specifications)\n\n3. **Decimal Types**:\n   - decimal (variable user-specified precision)\n   - numeric (variable user-specified precision)\n\nThese types allow for a range of numeric values and precision levels, as detailed in the documentation [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "a4523e3f-5858-4f34-b11c-216f86e47047"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 3263,
+      "retrievalMs": 23,
+      "generationMs": 2912
+    },
+    {
+      "questionId": "pg18-026",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL provides the following broad numeric type families:\n\n1. **Integer Types**: \n   - smallint (2 bytes)\n   - integer (4 bytes)\n   - bigint (8 bytes)\n\n2. **Floating-Point Types**: \n   - real (4 bytes)\n   - double precision (8 bytes)\n\n3. **Decimal Types**: \n   - decimal (variable precision)\n   - numeric (variable precision)\n\nBoth decimal and numeric types are equivalent and allow for user-specified precision, being exact up to 131072 digits before the decimal point and up to 16383 digits after the decimal point [S1].",
+      "retrievedChunkIds": [
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "a4523e3f-5858-4f34-b11c-216f86e47047",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0.5,
+      "latencyMs": 3402,
+      "retrievalMs": 33,
+      "generationMs": 2952
+    },
+    {
+      "questionId": "pg18-027",
+      "strategy": "fixed_vector",
+      "answer": "The integer type is often the default choice among integer types because it offers the best balance between range, storage size, and performance [S1][S2].",
+      "retrievedChunkIds": [
+        "2db06a25-b86d-42c3-9ec8-fb91d91f298d",
+        "f47cf77e-db91-4033-9111-60f7f07c8242",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "d04acb3d-d945-48ef-994b-5f8bea876be6",
+        "eabe8ec8-ab2f-4e46-aee8-b6528c619661"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1921,
+      "retrievalMs": 5,
+      "generationMs": 1495
+    },
+    {
+      "questionId": "pg18-027",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 654,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-027",
+      "strategy": "hybrid_rrf",
+      "answer": "The integer type is often the default choice among integer types because it offers the best balance between range, storage size, and performance [S1][S2].",
+      "retrievedChunkIds": [
+        "2db06a25-b86d-42c3-9ec8-fb91d91f298d",
+        "f47cf77e-db91-4033-9111-60f7f07c8242",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "d04acb3d-d945-48ef-994b-5f8bea876be6",
+        "eabe8ec8-ab2f-4e46-aee8-b6528c619661"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1704,
+      "retrievalMs": 41,
+      "generationMs": 1285
+    },
+    {
+      "questionId": "pg18-027",
+      "strategy": "vector_rerank",
+      "answer": "The integer type is often the default choice among integer types because it offers the best balance between range, storage size, and performance. This makes it suitable for a wide variety of applications without the need for the additional storage space that smallint or bigint might require in specific scenarios [S1][S2].",
+      "retrievedChunkIds": [
+        "2db06a25-b86d-42c3-9ec8-fb91d91f298d",
+        "f47cf77e-db91-4033-9111-60f7f07c8242",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "62529563-021d-4310-977b-a34994e3b340"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2114,
+      "retrievalMs": 9,
+      "generationMs": 1763
+    },
+    {
+      "questionId": "pg18-028",
+      "strategy": "fixed_vector",
+      "answer": "In NUMERIC(precision, scale):\n\n1. **Precision** refers to the total count of significant digits in the whole number, which includes the number of digits on both sides of the decimal point. For example, in the number 23.5141, the precision is 6 [S2].\n\n2. **Scale** refers to the count of decimal digits in the fractional part, specifically to the right of the decimal point. For instance, in the number 23.5141, the scale is 4 [S2].",
+      "retrievedChunkIds": [
+        "a4523e3f-5858-4f34-b11c-216f86e47047",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3209,
+      "retrievalMs": 4,
+      "generationMs": 2220
+    },
+    {
+      "questionId": "pg18-028",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 427,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-028",
+      "strategy": "hybrid_rrf",
+      "answer": "In NUMERIC(precision, scale):\n\n1. **Precision** refers to the total count of significant digits in the whole number, which includes the number of digits on both sides of the decimal point. For example, the number 23.5141 has a precision of 6 [S2].\n\n2. **Scale** refers to the count of decimal digits in the fractional part, specifically to the right of the decimal point. For instance, in the number 23.5141, the scale is 4 [S2].",
+      "retrievedChunkIds": [
+        "a4523e3f-5858-4f34-b11c-216f86e47047",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2826,
+      "retrievalMs": 18,
+      "generationMs": 2119
+    },
+    {
+      "questionId": "pg18-028",
+      "strategy": "vector_rerank",
+      "answer": "In NUMERIC(precision, scale):\n\n1. **Precision** refers to the total count of significant digits in the whole number, which includes the number of digits on both sides of the decimal point. For example, in the number 23.5141, the precision is 6 [S2].\n\n2. **Scale** refers to the count of decimal digits in the fractional part, specifically to the right of the decimal point. For instance, in the number 23.5141, the scale is 4 [S2].",
+      "retrievedChunkIds": [
+        "a4523e3f-5858-4f34-b11c-216f86e47047",
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3005,
+      "retrievalMs": 3,
+      "generationMs": 2693
+    },
+    {
+      "questionId": "pg18-030",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL's numeric type differs from floating-point types in terms of exactness as follows:\n\n1. **Exactness**: The numeric type (decimal and numeric) is exact and can store values with a user-specified precision, allowing for exact calculations up to 131072 digits before the decimal point and 16383 digits after the decimal point [S3]. In contrast, floating-point types (real and double precision) are inexact and can only provide variable precision, with real offering about 6 decimal digits and double precision about 15 decimal digits [S3].\n\n2. **Rounding Behavior**: When rounding values, the numeric type rounds ties away from zero, while floating-point types typically round ties to the nearest even number [S1].\n\n3. **Handling Special Values**: Floating-point types include special values like NaN (not-a-number), which are treated differently in comparisons. PostgreSQL treats NaN values as equal and greater than all non-NaN values for sorting and indexing purposes, which can lead to unexpected behavior in calculations [S4]. The numeric type does not have such special values and maintains strict equality among numeric values.\n\nIn summary, when exactness matters, the numeric type is preferred due to its precision and consistent behavior, while floating-point types may introduce rounding errors and special value complications.",
+      "retrievedChunkIds": [
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 5639,
+      "retrievalMs": 4,
+      "generationMs": 5202
+    },
+    {
+      "questionId": "pg18-030",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 347,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-030",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL's numeric type differs from floating-point types in terms of exactness as follows:\n\n1. **Exactness**: The numeric type (decimal and numeric) is exact and can store values with a user-specified precision, allowing for exact calculations up to 131072 digits before the decimal point and 16383 digits after the decimal point [S3]. In contrast, floating-point types (real and double precision) are inexact and can only provide variable precision, with real offering about 6 decimal digits and double precision about 15 decimal digits [S3].\n\n2. **Rounding Behavior**: When rounding values, the numeric type rounds ties away from zero, while floating-point types typically round ties to the nearest even number [S1].\n\n3. **Handling Special Values**: Floating-point types include special values like NaN (not-a-number), which are treated differently in comparisons. PostgreSQL treats NaN values as equal and greater than all non-NaN values for sorting and indexing purposes, which can lead to unexpected results in calculations requiring exactness [S4].\n\nIn summary, when exactness matters, the numeric type is preferred over floating-point types due to its ability to handle precise values without rounding errors or special value complications.",
+      "retrievedChunkIds": [
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 5179,
+      "retrievalMs": 34,
+      "generationMs": 4815
+    },
+    {
+      "questionId": "pg18-030",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL's numeric type differs from floating-point types in several key ways when exactness matters:\n\n1. **Exactness**: The numeric type (also referred to as decimal) is designed to store numbers with a very large number of digits and provides exact results for calculations such as addition, subtraction, and multiplication. This makes it particularly suitable for applications requiring precise values, such as monetary amounts [S4].\n\n2. **Precision and Rounding**: The numeric type allows for user-specified precision and rounds ties away from zero. In contrast, floating-point types (real and double precision) are inexact and typically round ties to the nearest even number [S1].\n\n3. **Performance**: While numeric types provide exact results, they are slower in calculations compared to floating-point types, which are faster but less precise [S5].\n\nIn summary, when exactness is crucial, the numeric type is preferred due to its ability to handle precise calculations without rounding errors, unlike floating-point types which can introduce inaccuracies.",
+      "retrievedChunkIds": [
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "2db06a25-b86d-42c3-9ec8-fb91d91f298d"
+      ],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3782,
+      "retrievalMs": 6,
+      "generationMs": 3394
+    },
+    {
+      "questionId": "pg18-031",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL orders NaN values by treating them as equal to each other and greater than all non-NaN values. This approach allows for sorting and the use of tree-based indexes. In general, NaN is not considered equal to any other numeric value, including itself, according to IEEE 754 standards, but PostgreSQL's implementation diverges from this by treating NaN as greater than all other numeric values for sorting purposes [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2810,
+      "retrievalMs": 4,
+      "generationMs": 2238
+    },
+    {
+      "questionId": "pg18-031",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 460,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-031",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL orders NaN values by treating them as equal to each other and greater than all non-NaN values. This approach allows for sorting and the use of tree-based indexes. According to the documentation, \"PostgreSQL treats NaN values as equal, and greater than all non-NaN values\" [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "0a0d0847-6e51-4b80-a74a-427e20c4324b"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2266,
+      "retrievalMs": 34,
+      "generationMs": 1908
+    },
+    {
+      "questionId": "pg18-031",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL orders NaN values for floating-point comparisons and sorting by treating them as equal to each other and greater than all non-NaN values. This behavior allows NaN values to be sorted and used in tree-based indexes effectively [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "2ec808d5-06dd-497c-b1e9-a35024cc2537",
+        "2b61dde0-1a8d-4e5f-922a-8fa5ebff0135",
+        "fd232e8a-bdb5-48d0-b743-7a495587199d",
+        "06f326c3-a38a-4827-9bc7-7fb1b8c02299",
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.3333333333333333,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2558,
+      "retrievalMs": 8,
+      "generationMs": 1946
+    },
+    {
+      "questionId": "pg18-032",
+      "strategy": "fixed_vector",
+      "answer": "SERIAL-style columns in PostgreSQL are implemented using sequences. When a SERIAL column is created, it is equivalent to creating a sequence and setting the column's default value to the next value from that sequence. This is done through the following steps: creating a sequence, creating the table with an integer column that defaults to the next value from the sequence, and marking the sequence as owned by the column [S3].\n\nThe generated values from SERIAL-style columns can have gaps because a value allocated from the sequence is considered \"used up\" even if the corresponding row is not successfully inserted into the table. This can occur if the transaction that attempted to insert the row is rolled back, resulting in a gap in the sequence of values [S1].",
+      "retrievedChunkIds": [
+        "0071bc65-ff3f-436d-93d6-245e131bdd4a",
+        "62529563-021d-4310-977b-a34994e3b340",
+        "8205e813-df2f-43e2-a3ae-deb3a6c0a8dd",
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3360,
+      "retrievalMs": 2,
+      "generationMs": 2953
+    },
+    {
+      "questionId": "pg18-032",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 517,
+      "retrievalMs": 4,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-032",
+      "strategy": "hybrid_rrf",
+      "answer": "SERIAL-style columns in PostgreSQL are implemented using sequences. When a SERIAL column is created, it is equivalent to creating a sequence and setting the column's default value to the next value from that sequence. This is done automatically when you define a column as SERIAL, which simplifies the process of creating unique identifier columns [S3].\n\nThe generated values from SERIAL-style columns can have gaps due to the nature of how sequences work. Specifically, a value allocated from the sequence is considered \"used up\" even if the corresponding row is not successfully inserted into the table. This can occur if a transaction that attempted to insert the row is rolled back, leading to gaps in the sequence of values [S1].",
+      "retrievedChunkIds": [
+        "0071bc65-ff3f-436d-93d6-245e131bdd4a",
+        "62529563-021d-4310-977b-a34994e3b340",
+        "8205e813-df2f-43e2-a3ae-deb3a6c0a8dd",
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2961,
+      "retrievalMs": 34,
+      "generationMs": 2521
+    },
+    {
+      "questionId": "pg18-032",
+      "strategy": "vector_rerank",
+      "answer": "SERIAL-style columns are implemented using sequences in PostgreSQL. When a SERIAL column is created, it is equivalent to creating a sequence and setting the column's default value to the next value from that sequence. This is done through the following steps: creating a sequence, creating the table with an integer column that defaults to the next value of the sequence, and marking the sequence as owned by the column so that it will be dropped if the column or table is dropped [S3].\n\nThe generated values from SERIAL-style columns can have gaps because a value allocated from the sequence is considered \"used up\" even if the corresponding row is not successfully inserted into the table. This can occur if the transaction that attempted to insert the row is rolled back, leading to gaps in the sequence of values [S1].",
+      "retrievedChunkIds": [
+        "0071bc65-ff3f-436d-93d6-245e131bdd4a",
+        "62529563-021d-4310-977b-a34994e3b340",
+        "8205e813-df2f-43e2-a3ae-deb3a6c0a8dd",
+        "771aa80f-db70-4bdd-93e7-55c4162e4c50",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3395,
+      "retrievalMs": 5,
+      "generationMs": 2980
+    },
+    {
+      "questionId": "pg18-033",
+      "strategy": "fixed_vector",
+      "answer": "The owner of a PostgreSQL object when it is created is normally the role that executed the creation statement [S1].",
+      "retrievedChunkIds": [
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "acf047e9-0727-4720-922a-8c112a3418ac",
+        "6be8df77-90be-4a64-a40b-7299fae239e3",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2351,
+      "retrievalMs": 4,
+      "generationMs": 1637
+    },
+    {
+      "questionId": "pg18-033",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 359,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-033",
+      "strategy": "hybrid_rrf",
+      "answer": "The owner of a PostgreSQL object when it is created is normally the role that executed the creation statement [S1].",
+      "retrievedChunkIds": [
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "acf047e9-0727-4720-922a-8c112a3418ac",
+        "6be8df77-90be-4a64-a40b-7299fae239e3",
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1784,
+      "retrievalMs": 25,
+      "generationMs": 1223
+    },
+    {
+      "questionId": "pg18-033",
+      "strategy": "vector_rerank",
+      "answer": "The owner of a PostgreSQL object when it is created is normally the role that executed the creation statement [S1].",
+      "retrievedChunkIds": [
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "910a7bd8-5018-4838-8e01-30ff09ce7f9b",
+        "c4e80123-8d1d-435d-8334-445b73572b29",
+        "c9556b14-cec1-4056-a2da-eac0ae4a5ce1",
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1642,
+      "retrievalMs": 4,
+      "generationMs": 1225
+    },
+    {
+      "questionId": "pg18-034",
+      "strategy": "fixed_vector",
+      "answer": "The special role name PUBLIC in GRANT statements is used to grant a privilege to every role on the system. For example, when a privilege is granted to PUBLIC, it means that all users have that privilege on the specified object. This is illustrated in the document where it mentions that an empty grantee field in an aclitem stands for PUBLIC, and provides an example of granting SELECT on a table to PUBLIC [S1][S2].",
+      "retrievedChunkIds": [
+        "f02fea26-9c15-4d98-961e-845eb7c7135b",
+        "d7958fc0-492c-4c3d-bbb8-b0a42fd41a36",
+        "6be8df77-90be-4a64-a40b-7299fae239e3",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd",
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2681,
+      "retrievalMs": 5,
+      "generationMs": 2260
+    },
+    {
+      "questionId": "pg18-034",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 619,
+      "retrievalMs": 4,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-034",
+      "strategy": "hybrid_rrf",
+      "answer": "The special role name PUBLIC in GRANT statements is used to grant a privilege to every role on the system. For example, when a privilege is granted to PUBLIC, it means that all users have that privilege on the specified object. This is illustrated in the document where it mentions that an empty grantee field in an aclitem stands for PUBLIC, and provides an example of granting SELECT on a table to PUBLIC [S1][S2].",
+      "retrievedChunkIds": [
+        "f02fea26-9c15-4d98-961e-845eb7c7135b",
+        "d7958fc0-492c-4c3d-bbb8-b0a42fd41a36",
+        "6be8df77-90be-4a64-a40b-7299fae239e3",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd",
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2334,
+      "retrievalMs": 28,
+      "generationMs": 1926
+    },
+    {
+      "questionId": "pg18-034",
+      "strategy": "vector_rerank",
+      "answer": "The special role name PUBLIC in GRANT statements means that the privilege is granted to every role on the system. For example, using \"GRANT SELECT ON mytable TO PUBLIC;\" allows all users to have the SELECT privilege on the specified table [S1][S2].",
+      "retrievedChunkIds": [
+        "f02fea26-9c15-4d98-961e-845eb7c7135b",
+        "d7958fc0-492c-4c3d-bbb8-b0a42fd41a36",
+        "804ad208-08d4-4adf-a37d-d90b331d6366",
+        "6be8df77-90be-4a64-a40b-7299fae239e3",
+        "36c1d640-df86-4fe1-b6b2-7ee1e7bcb097"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2150,
+      "retrievalMs": 6,
+      "generationMs": 1633
+    },
+    {
+      "questionId": "pg18-036",
+      "strategy": "fixed_vector",
+      "answer": "The EXECUTE privilege allows a role to call a function or procedure, including the use of any operators that are implemented on top of the function. This is the only type of privilege that is applicable to functions and procedures [S1].",
+      "retrievedChunkIds": [
+        "4abfc3f9-ba02-4157-b1e0-f5eb24bfaacf",
+        "c9556b14-cec1-4056-a2da-eac0ae4a5ce1",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5",
+        "c4e80123-8d1d-435d-8334-445b73572b29"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2257,
+      "retrievalMs": 30,
+      "generationMs": 1721
+    },
+    {
+      "questionId": "pg18-036",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 708,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-036",
+      "strategy": "hybrid_rrf",
+      "answer": "The EXECUTE privilege allows a role to call a function or procedure, including the use of any operators that are implemented on top of the function. This privilege is specifically applicable to functions and procedures only [S2].",
+      "retrievedChunkIds": [
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "4abfc3f9-ba02-4157-b1e0-f5eb24bfaacf",
+        "c9556b14-cec1-4056-a2da-eac0ae4a5ce1",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2246,
+      "retrievalMs": 30,
+      "generationMs": 1811
+    },
+    {
+      "questionId": "pg18-036",
+      "strategy": "vector_rerank",
+      "answer": "The EXECUTE privilege allows a role to call a function or procedure, including the use of any operators that are implemented on top of the function. This is the only type of privilege that is applicable to functions and procedures [S1].",
+      "retrievedChunkIds": [
+        "4abfc3f9-ba02-4157-b1e0-f5eb24bfaacf",
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "c9556b14-cec1-4056-a2da-eac0ae4a5ce1",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1926,
+      "retrievalMs": 6,
+      "generationMs": 1607
+    },
+    {
+      "questionId": "pg18-037",
+      "strategy": "fixed_vector",
+      "answer": "ALTER DEFAULT PRIVILEGES affects the built-in default privileges for various object types in PostgreSQL. Specifically, it can modify the default privileges granted to objects such as tables, table columns, sequences, foreign data wrappers, foreign servers, large objects, schemas, tablespaces, and configuration parameters. The command allows the object owner to override the default privileges that are typically granted to PUBLIC and can also affect the privileges displayed for the object in the system catalog [S1][S2][S3].",
+      "retrievedChunkIds": [
+        "cf95645c-813b-4b11-856d-1c5b59223dee",
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39",
+        "e3104036-c451-46e4-8ae8-fa2facca53a6",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2981,
+      "retrievalMs": 3,
+      "generationMs": 2546
+    },
+    {
+      "questionId": "pg18-037",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 523,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-037",
+      "strategy": "hybrid_rrf",
+      "answer": "ALTER DEFAULT PRIVILEGES affects the default privileges for various object types in PostgreSQL, including tables, table columns, sequences, foreign data wrappers, foreign servers, large objects, schemas, tablespaces, and configuration parameters. It allows the object owner to override the built-in default privileges for these objects [S3].",
+      "retrievedChunkIds": [
+        "cf95645c-813b-4b11-856d-1c5b59223dee",
+        "e3104036-c451-46e4-8ae8-fa2facca53a6",
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2037,
+      "retrievalMs": 21,
+      "generationMs": 1596
+    },
+    {
+      "questionId": "pg18-037",
+      "strategy": "vector_rerank",
+      "answer": "ALTER DEFAULT PRIVILEGES affects the built-in default privileges for various object types in PostgreSQL, including tables, table columns, sequences, foreign data wrappers, foreign servers, large objects, schemas, tablespaces, and configuration parameters. It allows the object owner to modify the default privileges that are granted to PUBLIC or other roles when new objects of those types are created [S2][S3].",
+      "retrievedChunkIds": [
+        "cf95645c-813b-4b11-856d-1c5b59223dee",
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39",
+        "e3104036-c451-46e4-8ae8-fa2facca53a6",
+        "910a7bd8-5018-4838-8e01-30ff09ce7f9b",
+        "c9556b14-cec1-4056-a2da-eac0ae4a5ce1"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2536,
+      "retrievalMs": 7,
+      "generationMs": 1802
+    },
+    {
+      "questionId": "pg18-038",
+      "strategy": "fixed_vector",
+      "answer": "When row-level security is enabled on a table but no policy applies, a default-deny policy is used. This means that no rows are visible or can be modified. Operations that apply to the whole table, such as TRUNCATE and REFERENCES, are not subject to row security policies [S1][S2].",
+      "retrievedChunkIds": [
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "88fb76c0-98fb-4919-9655-5859a917fea9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1975,
+      "retrievalMs": 4,
+      "generationMs": 1636
+    },
+    {
+      "questionId": "pg18-038",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 609,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-038",
+      "strategy": "hybrid_rrf",
+      "answer": "When row-level security is enabled on a table but no policy applies, a default-deny policy is used. This means that no rows are visible or can be modified. Operations that apply to the whole table, such as TRUNCATE and REFERENCES, are not subject to row security policies [S1][S2].",
+      "retrievedChunkIds": [
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "88fb76c0-98fb-4919-9655-5859a917fea9"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2051,
+      "retrievalMs": 26,
+      "generationMs": 1702
+    },
+    {
+      "questionId": "pg18-038",
+      "strategy": "vector_rerank",
+      "answer": "When row-level security is enabled on a table but no policy applies, a default-deny policy is used. This means that no rows are visible or can be modified by users, effectively restricting access to the table's data unless specific policies are defined to allow it [S1][S2].",
+      "retrievedChunkIds": [
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "804ad208-08d4-4adf-a37d-d90b331d6366",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2051,
+      "retrievalMs": 5,
+      "generationMs": 1648
+    },
+    {
+      "questionId": "pg18-039",
+      "strategy": "fixed_vector",
+      "answer": "The difference between USING and WITH CHECK in a row-security policy is as follows:\n\n1. **USING Clause**: This clause defines which rows are visible to the user based on a condition. For example, in a policy that allows only certain users to access specific rows, the USING clause specifies the criteria that must be met for a row to be included in the results of a query.\n\n2. **WITH CHECK Clause**: This clause is used to enforce conditions on rows that are being modified (INSERT or UPDATE). It ensures that any new rows being added or existing rows being modified meet the specified condition. If a row does not meet the condition defined in the WITH CHECK clause, the operation will be rejected.\n\nThe evidence indicates that the WITH CHECK clause implicitly defaults to the same condition as the USING clause if not explicitly defined, meaning that the same criteria apply to both row selection and modification operations [S1]. \n\nThus, while both clauses serve to enforce security policies, the USING clause is focused on visibility of rows, and the WITH CHECK clause is focused on the integrity of modifications to those rows.",
+      "retrievedChunkIds": [
+        "4fefd605-b023-44b2-81a0-37b17325cb57",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3688,
+      "retrievalMs": 7,
+      "generationMs": 3371
+    },
+    {
+      "questionId": "pg18-039",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 377,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-039",
+      "strategy": "hybrid_rrf",
+      "answer": "The difference between USING and WITH CHECK in a row-security policy is as follows:\n\n1. **USING Clause**: This clause defines which rows are visible to the user based on a condition. For example, in a policy that allows only certain users to access specific rows, the USING clause specifies the criteria that must be met for a row to be included in the results of a query.\n\n2. **WITH CHECK Clause**: This clause is used to enforce conditions on rows that are being modified (INSERT or UPDATE). It ensures that any new rows being added or existing rows being modified meet the specified condition. If a row does not meet the condition defined in the WITH CHECK clause, the operation will be rejected.\n\nThe evidence indicates that the WITH CHECK clause implicitly defaults to the same condition as the USING clause if not explicitly defined, meaning that the same criteria apply to both row selection and modification operations [S1]. \n\nThus, while both clauses serve to enforce security policies, the USING clause is about visibility of rows, and the WITH CHECK clause is about the validity of modifications to those rows.",
+      "retrievedChunkIds": [
+        "4fefd605-b023-44b2-81a0-37b17325cb57",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3819,
+      "retrievalMs": 28,
+      "generationMs": 3453
+    },
+    {
+      "questionId": "pg18-039",
+      "strategy": "vector_rerank",
+      "answer": "The difference between USING and WITH CHECK in a row-security policy is as follows:\n\n1. **USING Clause**: This clause defines the conditions under which rows can be selected or accessed. For example, in a policy, it can specify that only rows where a certain condition is true (like `manager = current_user`) are visible to the user.\n\n2. **WITH CHECK Clause**: This clause is implicitly provided and is identical to the USING clause unless specified otherwise. It ensures that the same conditions apply to rows being modified (INSERT or UPDATE). This means that a user cannot modify or create rows that do not meet the specified conditions.\n\nIn summary, the USING clause controls visibility of rows, while the WITH CHECK clause ensures that modifications adhere to the same conditions as visibility [S1].",
+      "retrievedChunkIds": [
+        "4fefd605-b023-44b2-81a0-37b17325cb57",
+        "88fb76c0-98fb-4919-9655-5859a917fea9",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3176,
+      "retrievalMs": 7,
+      "generationMs": 2752
+    },
+    {
+      "questionId": "pg18-040",
+      "strategy": "fixed_vector",
+      "answer": "Multiple permissive and restrictive row-security policies are combined using different logical operators depending on their nature. For permissive policies, which are the default, they are combined using OR. This means that if any of the permissive policies allow access to a row, that row will be visible or modifiable. On the other hand, restrictive policies are combined using AND, meaning that all restrictive policies must allow access for a row to be visible or modifiable. This combination ensures that the most restrictive conditions are applied when necessary, while still allowing broader access when permissive policies are in effect [S1].",
+      "retrievedChunkIds": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "804ad208-08d4-4adf-a37d-d90b331d6366",
+        "c69525ee-fd80-42cb-b626-281976477479"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3069,
+      "retrievalMs": 4,
+      "generationMs": 2456
+    },
+    {
+      "questionId": "pg18-040",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 331,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-040",
+      "strategy": "hybrid_rrf",
+      "answer": "Multiple permissive and restrictive row-security policies are combined using different logical operators depending on their nature. Permissive policies are combined using OR, which allows for broader access, while restrictive policies are combined using AND, which tightens access. This means that when multiple permissive policies apply to a query, any of them can grant access, whereas all restrictive policies must be satisfied for access to be granted [S1]. \n\nFor example, if a permissive policy allows all users to view all rows, and a restrictive policy allows only specific users to modify their own rows, the SELECT command would combine these policies using OR, allowing all rows to be selected. However, for modification commands, only the restrictive policy would apply, limiting modifications to the user's own row [S4].",
+      "retrievedChunkIds": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "804ad208-08d4-4adf-a37d-d90b331d6366",
+        "c69525ee-fd80-42cb-b626-281976477479"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3758,
+      "retrievalMs": 26,
+      "generationMs": 3342
+    },
+    {
+      "questionId": "pg18-040",
+      "strategy": "vector_rerank",
+      "answer": "Multiple permissive and restrictive row-security policies are combined using different Boolean operators: permissive policies are combined using OR, while restrictive policies are combined using AND. This means that when multiple policies apply to a query, the permissive policies allow access if any of them are satisfied (OR), whereas restrictive policies require that all conditions be met (AND) for access to be granted [S1][S4].",
+      "retrievedChunkIds": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "53f1c8df-611d-487f-a235-8ad022584f92",
+        "804ad208-08d4-4adf-a37d-d90b331d6366"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2454,
+      "retrievalMs": 6,
+      "generationMs": 2099
+    },
+    {
+      "questionId": "pg18-041",
+      "strategy": "fixed_vector",
+      "answer": "If row security is disabled on a table, its policies are not deleted; they are simply ignored. This means that all rows in the table become visible and modifiable, subject to the standard SQL privileges system [S5].",
+      "retrievedChunkIds": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.2,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1951,
+      "retrievalMs": 2,
+      "generationMs": 1621
+    },
+    {
+      "questionId": "pg18-041",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 380,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-041",
+      "strategy": "hybrid_rrf",
+      "answer": "If row security is disabled on a table, its policies are not deleted; they are simply ignored. This means that all rows in the table become visible and modifiable, subject to the standard SQL privileges system [S5].",
+      "retrievedChunkIds": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "c69525ee-fd80-42cb-b626-281976477479",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.2,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1876,
+      "retrievalMs": 31,
+      "generationMs": 1450
+    },
+    {
+      "questionId": "pg18-041",
+      "strategy": "vector_rerank",
+      "answer": "Disabling row security does not remove any policies that are defined on the table; they are simply ignored. Therefore, the policies remain in place but are not active when row security is disabled [S4].",
+      "retrievedChunkIds": [
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9",
+        "754a1564-bfef-4369-a550-328bc7b6e497",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7",
+        "804ad208-08d4-4adf-a37d-d90b331d6366"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 0.25,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2047,
+      "retrievalMs": 8,
+      "generationMs": 1527
+    },
+    {
+      "questionId": "pg18-043",
+      "strategy": "fixed_vector",
+      "answer": "Table partitioning refers to splitting what is logically one large table into smaller physical pieces. \n\nTwo benefits of table partitioning are:\n1. Improved query performance, particularly when heavily accessed rows are in a single partition or a small number of partitions, as it can substitute for the upper tree levels of indexes, making it more likely that the heavily-used parts fit in memory [S1].\n2. Faster bulk loads and deletes can be accomplished by adding or removing partitions, as dropping an individual partition is far quicker than performing a bulk operation, and it avoids the VACUUM overhead caused by bulk deletes [S4].",
+      "retrievedChunkIds": [
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "e3f7bfba-d844-4d3c-b358-419184014ff4",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "82585353-f216-4911-b32a-74130af9fa63"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2965,
+      "retrievalMs": 6,
+      "generationMs": 2548
+    },
+    {
+      "questionId": "pg18-043",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 420,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-043",
+      "strategy": "hybrid_rrf",
+      "answer": "Table partitioning refers to splitting what is logically one large table into smaller physical pieces. \n\nTwo benefits of table partitioning are:\n1. Improved query performance, particularly when heavily accessed rows are in a single partition or a small number of partitions, allowing for more efficient memory usage of indexes [S1].\n2. Faster bulk loads and deletes by adding or removing partitions, which avoids the overhead associated with bulk DELETE operations [S4].",
+      "retrievedChunkIds": [
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "e3f7bfba-d844-4d3c-b358-419184014ff4",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "82585353-f216-4911-b32a-74130af9fa63"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2664,
+      "retrievalMs": 28,
+      "generationMs": 2285
+    },
+    {
+      "questionId": "pg18-043",
+      "strategy": "vector_rerank",
+      "answer": "Table partitioning refers to splitting what is logically one large table into smaller physical pieces. \n\nTwo benefits of table partitioning are:\n1. Improved query performance, particularly when heavily accessed rows are in a single partition or a small number of partitions, as it can make it more likely that the heavily-used parts of the indexes fit in memory [S1].\n2. Enhanced performance for queries or updates that access a large percentage of a single partition, allowing for a sequential scan of that partition instead of using an index, which would require random-access reads scattered across the whole table [S1].",
+      "retrievedChunkIds": [
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "a6d19f7f-8dc0-49fe-8351-be4f6b5ec7db",
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "66f1f2a6-2bd9-4f78-ab00-4822bbdea4ce",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2704,
+      "retrievalMs": 5,
+      "generationMs": 2293
+    },
+    {
+      "questionId": "pg18-044",
+      "strategy": "fixed_vector",
+      "answer": "PostgreSQL's three declarative partitioning methods are:\n\n1. **Range Partitioning**: This method divides the table into partitions based on specified ranges of key column values. Each range is defined with no overlap, meaning that a value can belong to only one partition. For example, partitions can be created for date ranges or ranges of identifiers.\n\n2. **List Partitioning**: In this method, the table is partitioned by explicitly listing the key values that belong to each partition. This allows for more control over which specific values are included in each partition.\n\n3. **Hash Partitioning**: This method partitions the table by applying a hash function to the partition key. Each partition is determined by a modulus and a remainder, meaning that rows are distributed across partitions based on the hash value of the partition key.\n\nThese methods differ primarily in how they categorize and distribute data across partitions: Range Partitioning uses value ranges, List Partitioning uses explicit value lists, and Hash Partitioning uses a hash function to determine partition placement [S2].",
+      "retrievedChunkIds": [
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "15b67714-c7d3-4691-8ab8-824b2d323216",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3944,
+      "retrievalMs": 4,
+      "generationMs": 3373
+    },
+    {
+      "questionId": "pg18-044",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 413,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-044",
+      "strategy": "hybrid_rrf",
+      "answer": "PostgreSQL's three declarative partitioning methods are:\n\n1. **Range Partitioning**: This method divides the table into partitions based on specified ranges of key column values. Each range is defined with no overlap, meaning that a value can belong to only one partition. For example, ranges can be defined by date or identifiers, where the lower bound is inclusive and the upper bound is exclusive [S2].\n\n2. **List Partitioning**: In this method, the table is partitioned by explicitly listing the key values that belong to each partition. This allows for more specific control over which values go into which partitions [S2].\n\n3. **Hash Partitioning**: This method partitions the table by applying a hash function to the partition key. Each partition is determined by a modulus and a remainder, meaning that rows are distributed across partitions based on the hash value of the partition key [S2].\n\nThe differences among these methods lie in how they categorize and distribute the data:\n- **Range Partitioning** is based on continuous ranges of values.\n- **List Partitioning** is based on specific, discrete values.\n- **Hash Partitioning** uses a hash function to evenly distribute data across partitions.",
+      "retrievedChunkIds": [
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "15b67714-c7d3-4691-8ab8-824b2d323216",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 4350,
+      "retrievalMs": 26,
+      "generationMs": 3948
+    },
+    {
+      "questionId": "pg18-044",
+      "strategy": "vector_rerank",
+      "answer": "PostgreSQL's three declarative partitioning methods are:\n\n1. **Range Partitioning**: This method divides the table into partitions based on specified ranges of key column values. Each partition has non-overlapping ranges, meaning that a value can belong to only one partition. For example, partitions can be created for date ranges or ranges of identifiers.\n\n2. **List Partitioning**: In this method, the table is partitioned by explicitly listing the key values that belong to each partition. This allows for more control over which specific values are included in each partition.\n\n3. **Hash Partitioning**: This method partitions the table based on a hash function applied to the partition key. Each partition holds rows for which the hash value of the partition key, when divided by a specified modulus, produces a specified remainder.\n\nThese methods differ primarily in how they categorize and store data within partitions: Range Partitioning uses value ranges, List Partitioning uses explicit value lists, and Hash Partitioning uses a hash function to distribute data across partitions [S3].",
+      "retrievedChunkIds": [
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87",
+        "27664a92-f49b-489a-96b5-bc4122185391"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 4350,
+      "retrievalMs": 8,
+      "generationMs": 3964
+    },
+    {
+      "questionId": "pg18-045",
+      "strategy": "fixed_vector",
+      "answer": "A partitioned parent table does not store any data itself. This is explicitly stated in the evidence: \"a partitioned table does not have any data itself\" [S2].",
+      "retrievedChunkIds": [
+        "c03e39a5-8728-4041-aa12-60005cbb525e",
+        "19e05c66-05c0-4ed1-b8d9-f237996e7105",
+        "e3f7bfba-d844-4d3c-b358-419184014ff4",
+        "617fbeaf-cfdd-4017-a0ad-8854826b38e5",
+        "6a57e956-f0e1-47f0-b58a-9d4f6ac4f089"
+      ],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 1741,
+      "retrievalMs": 4,
+      "generationMs": 1350
+    },
+    {
+      "questionId": "pg18-045",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 411,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-045",
+      "strategy": "hybrid_rrf",
+      "answer": "A partitioned parent table does not store any data itself. It serves as a template for its partitions, which do contain the actual data. This is supported by the evidence stating, \"a partitioned table does not have any data itself\" [S3].",
+      "retrievedChunkIds": [
+        "c03e39a5-8728-4041-aa12-60005cbb525e",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4",
+        "19e05c66-05c0-4ed1-b8d9-f237996e7105",
+        "e3f7bfba-d844-4d3c-b358-419184014ff4",
+        "617fbeaf-cfdd-4017-a0ad-8854826b38e5"
+      ],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2353,
+      "retrievalMs": 21,
+      "generationMs": 1815
+    },
+    {
+      "questionId": "pg18-045",
+      "strategy": "vector_rerank",
+      "answer": "No, a partitioned parent table does not store the rows itself. It is described as a \"virtual\" table having no storage of its own, with the actual storage belonging to the partitions, which are ordinary tables associated with the partitioned table [S2].",
+      "retrievedChunkIds": [
+        "19e05c66-05c0-4ed1-b8d9-f237996e7105",
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "c03e39a5-8728-4041-aa12-60005cbb525e",
+        "e3f7bfba-d844-4d3c-b358-419184014ff4",
+        "087c1eef-1608-47e5-93b9-9fdd572b2843"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2661,
+      "retrievalMs": 9,
+      "generationMs": 1589
+    },
+    {
+      "questionId": "pg18-047",
+      "strategy": "fixed_vector",
+      "answer": "Dropping an old partition can be faster than deleting all its rows because it allows for the removal of large amounts of data nearly instantaneously by manipulating the partition structure, rather than requiring the individual deletion of each record. This method avoids the overhead associated with bulk DELETE operations, such as the need for VACUUM, which is necessary after a bulk delete to reclaim storage space. Specifically, commands like DROP TABLE or ALTER TABLE DETACH PARTITION are noted to be far faster than bulk operations, as they do not involve the same level of data movement and locking requirements [S1][S2].",
+      "retrievedChunkIds": [
+        "f621bbeb-9c44-4f1b-a546-0909dfe4c9fb",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192",
+        "7a8f19e7-25ab-46c1-bcfd-e3864b785201",
+        "d6882d17-6912-4e9d-9b6d-3b5514cca87b"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 3020,
+      "retrievalMs": 5,
+      "generationMs": 2705
+    },
+    {
+      "questionId": "pg18-047",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 376,
+      "retrievalMs": 3,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-047",
+      "strategy": "hybrid_rrf",
+      "answer": "Dropping an old partition can be faster than deleting all its rows because it allows for the removal of large amounts of data nearly instantaneously by manipulating the partition structure, rather than requiring the individual deletion of each record. This method avoids the overhead associated with bulk DELETE operations, such as the need for VACUUM, which is necessary after a bulk delete to reclaim storage space. Specifically, commands like DROP TABLE or ALTER TABLE DETACH PARTITION are noted to be far faster than performing bulk operations on the data within the partition [S1][S2].",
+      "retrievedChunkIds": [
+        "f621bbeb-9c44-4f1b-a546-0909dfe4c9fb",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192",
+        "7a8f19e7-25ab-46c1-bcfd-e3864b785201",
+        "d6882d17-6912-4e9d-9b6d-3b5514cca87b"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2536,
+      "retrievalMs": 27,
+      "generationMs": 2196
+    },
+    {
+      "questionId": "pg18-047",
+      "strategy": "vector_rerank",
+      "answer": "Dropping an old partition can be faster than deleting all its rows because it allows for the manipulation of the partition structure without the need to individually delete each record. This process can quickly delete millions of records since it avoids the overhead associated with bulk DELETE operations, such as the need for VACUUM. Specifically, commands like `DROP TABLE` or `ALTER TABLE DETACH PARTITION` are noted to be far faster than bulk operations, as they do not require the same level of resource-intensive actions that deleting rows does [S1][S2].",
+      "retrievedChunkIds": [
+        "f621bbeb-9c44-4f1b-a546-0909dfe4c9fb",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "7a8f19e7-25ab-46c1-bcfd-e3864b785201",
+        "686aac39-1e15-49be-82b7-49da45ca4f08",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2479,
+      "retrievalMs": 5,
+      "generationMs": 2059
+    },
+    {
+      "questionId": "pg18-048",
+      "strategy": "fixed_vector",
+      "answer": "To reduce the validation scan when attaching a preloaded table as a partition, it is recommended to create a CHECK constraint that matches the expected partition constraint on the table prior to attaching it. This helps avoid the scan that verifies the partition constraint while holding an ACCESS EXCLUSIVE lock on the partition. After the ATTACH PARTITION operation is complete, it is advisable to drop the now-redundant CHECK constraint [S2].",
+      "retrievedChunkIds": [
+        "228270ff-cd4a-4f43-94d7-25427763c19d",
+        "98846a8a-2af6-4a45-b1d6-7fb3ab731534",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "33fa9a69-2dcd-4bef-91ff-ab8d78d7f7e7",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2234,
+      "retrievalMs": 5,
+      "generationMs": 1810
+    },
+    {
+      "questionId": "pg18-048",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 325,
+      "retrievalMs": 2,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-048",
+      "strategy": "hybrid_rrf",
+      "answer": "To reduce the validation scan when attaching a preloaded table as a partition, it is recommended to create a CHECK constraint that matches the expected partition constraint on the table prior to attaching it. This helps avoid the scan that verifies the partition constraint while holding an ACCESS EXCLUSIVE lock on the partition. After the ATTACH PARTITION operation is complete, it is advisable to drop the now-redundant CHECK constraint [S2].",
+      "retrievedChunkIds": [
+        "228270ff-cd4a-4f43-94d7-25427763c19d",
+        "98846a8a-2af6-4a45-b1d6-7fb3ab731534",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "33fa9a69-2dcd-4bef-91ff-ab8d78d7f7e7",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2756,
+      "retrievalMs": 26,
+      "generationMs": 2436
+    },
+    {
+      "questionId": "pg18-048",
+      "strategy": "vector_rerank",
+      "answer": "To reduce the validation scan when attaching a preloaded table as a partition, it is recommended to create a CHECK constraint that matches the expected partition constraint on the table prior to attaching it. This helps avoid the scan that verifies the partition constraint while holding an ACCESS EXCLUSIVE lock on the partition. After the ATTACH PARTITION operation is complete, you can drop the now-redundant CHECK constraint [S2].",
+      "retrievedChunkIds": [
+        "228270ff-cd4a-4f43-94d7-25427763c19d",
+        "98846a8a-2af6-4a45-b1d6-7fb3ab731534",
+        "e52d8484-1653-4c6e-9463-3d524431bf80",
+        "33fa9a69-2dcd-4bef-91ff-ab8d78d7f7e7",
+        "e5c94443-e4a3-4116-a583-3a6ce10ceffa"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 0.5,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2145,
+      "retrievalMs": 6,
+      "generationMs": 1822
+    },
+    {
+      "questionId": "pg18-049",
+      "strategy": "fixed_vector",
+      "answer": "For a primary key or unique constraint on a partitioned table, the following must be true:\n\n1. The partition keys must not include any expressions or function calls.\n2. The constraint's columns must include all of the partition key columns. This is necessary because the individual indexes that enforce the constraint can only ensure uniqueness within their own partitions, and the partition structure must guarantee that there are no duplicates across different partitions [S1][S2]. \n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "704c2bf0-20cb-4b35-87fa-3839bd5afb1b",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87",
+        "19e05c66-05c0-4ed1-b8d9-f237996e7105",
+        "12e2b779-ce16-47e5-b2ea-7dfb7a9e17a3",
+        "b48d6246-9355-4c98-803b-b0cc2c44503e"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2354,
+      "retrievalMs": 4,
+      "generationMs": 2045
+    },
+    {
+      "questionId": "pg18-049",
+      "strategy": "semantic_vector",
+      "answer": "I couldn't find sufficient evidence in your documents to answer that question.",
+      "retrievedChunkIds": [],
+      "recallAt5": 0,
+      "reciprocalRank": 0,
+      "expectedFactCoverage": 0,
+      "latencyMs": 304,
+      "retrievalMs": 4,
+      "generationMs": 0
+    },
+    {
+      "questionId": "pg18-049",
+      "strategy": "hybrid_rrf",
+      "answer": "For a primary key or unique constraint on a partitioned table, the following must be true:\n\n1. The partition keys must not include any expressions or function calls.\n2. The constraint's columns must include all of the partition key columns.\n\nThis is necessary because the individual indexes that enforce the uniqueness can only do so within their own partitions [S1]. \n\nInsufficient evidence for this part.",
+      "retrievedChunkIds": [
+        "704c2bf0-20cb-4b35-87fa-3839bd5afb1b",
+        "12e2b779-ce16-47e5-b2ea-7dfb7a9e17a3",
+        "b48d6246-9355-4c98-803b-b0cc2c44503e",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192",
+        "e5c94443-e4a3-4116-a583-3a6ce10ceffa"
+      ],
+      "recallAt5": 0.5,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2256,
+      "retrievalMs": 37,
+      "generationMs": 1887
+    },
+    {
+      "questionId": "pg18-049",
+      "strategy": "vector_rerank",
+      "answer": "For a primary key or unique constraint on a partitioned table, the following must be true:\n\n1. The partition keys must not include any expressions or function calls.\n2. The constraint's columns must include all of the partition key columns.\n\nThis is necessary because the individual indexes that enforce the uniqueness can only do so within their own partitions, and the partition structure must guarantee that there are no duplicates across different partitions [S1][S3].",
+      "retrievedChunkIds": [
+        "704c2bf0-20cb-4b35-87fa-3839bd5afb1b",
+        "b48d6246-9355-4c98-803b-b0cc2c44503e",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87",
+        "231fb22c-e9e5-40a2-b63f-f9e3c0abe192",
+        "19e05c66-05c0-4ed1-b8d9-f237996e7105"
+      ],
+      "recallAt5": 1,
+      "reciprocalRank": 1,
+      "expectedFactCoverage": 0,
+      "latencyMs": 2364,
+      "retrievalMs": 4,
+      "generationMs": 2046
+    }
+  ]
+}

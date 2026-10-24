@@ -67,6 +67,8 @@ CREATE TABLE IF NOT EXISTS benchmark_questions (
     question TEXT NOT NULL,
     ground_truth_answer TEXT NOT NULL,
     relevant_document_ids JSONB NOT NULL DEFAULT '[]'::jsonb,
+    relevant_chunk_ids JSONB NOT NULL DEFAULT '[]'::jsonb,
+    relevant_semantic_chunk_ids JSONB NOT NULL DEFAULT '[]'::jsonb,
     evidence_snippet TEXT NOT NULL,
     expected_facts JSONB NOT NULL DEFAULT '[]'::jsonb,
     category TEXT NOT NULL,

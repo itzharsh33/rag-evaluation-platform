@@ -7,7 +7,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "test": "vitest run"
+    "test": "vitest run",
+    "benchmark:import": "tsx scripts/import-benchmark.ts",
+    "benchmark:run": "tsx scripts/run-benchmark.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",

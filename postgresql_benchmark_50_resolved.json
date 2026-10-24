@@ -1,0 +1,1484 @@
+{
+  "dataset_version": "postgresql-v1",
+  "corpus_version": "workspace-v1",
+  "question_count": 50,
+  "development_count": 40,
+  "holdout_count": 10,
+  "note": "Relevant chunk UUIDs were resolved from the uploaded live database mapping. Verify that the matching relevant_chunk_ids column exists before importing.",
+  "questions": [
+    {
+      "id": "pg18-001",
+      "dataset_version": "postgresql-v1",
+      "question": "What problem do database constraints solve in PostgreSQL?",
+      "ground_truth_answer": "Constraints restrict the values that can be stored so data follows rules required by the application. If an inserted or updated value violates a constraint, PostgreSQL raises an error, including when the value comes from a default.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "50192740-d6e6-481d-9376-0e9c943df10c",
+        "29d11fea-d5cd-424d-8f77-ec6a14016a58"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "If a user attempts to store data in a column that would violate a constraint, an error is raised. This applies even if the value came from the default value definition.",
+      "expected_facts": [
+        "constraints restrict stored values",
+        "violations raise errors",
+        "default values are also checked"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-002",
+      "dataset_version": "postgresql-v1",
+      "question": "Why is CHECK (price > 0) not enough to prevent a NULL price?",
+      "ground_truth_answer": "A CHECK expression that evaluates to NULL does not reject the row. To disallow missing values, use NOT NULL in addition to the CHECK constraint.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "29d11fea-d5cd-424d-8f77-ec6a14016a58",
+        "882bc676-d4f0-424d-92b2-84aebd473e11"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 5
+        }
+      ],
+      "evidence_snippet": "CHECK expressions that evaluate to the null value will not prevent null values in the constrained columns; use NOT NULL to ensure a column does not contain null values.",
+      "expected_facts": [
+        "CHECK returning NULL does not reject the row",
+        "NOT NULL prevents null values"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-003",
+      "dataset_version": "postgresql-v1",
+      "question": "How can a PostgreSQL CHECK constraint be given an explicit name?",
+      "ground_truth_answer": "Place CONSTRAINT followed by the chosen name before CHECK in the column definition, for example: price numeric CONSTRAINT positive_price CHECK (price > 0).",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "21b0bb7c-452a-467e-9a5c-10ecb0251e37",
+        "3494670a-fd1f-48fb-accc-258130883015"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 2
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "price numeric CONSTRAINT positive_price CHECK (price > 0)",
+      "expected_facts": [
+        "use CONSTRAINT name CHECK (...)",
+        "explicit names make errors and later references clearer"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-004",
+      "dataset_version": "postgresql-v1",
+      "question": "How does a UNIQUE constraint behave when a row contains NULL values?",
+      "ground_truth_answer": "By default, PostgreSQL treats two NULL values as not equal for a UNIQUE constraint, so multiple rows may contain NULL in the constrained column. PostgreSQL also supports explicit NULL treatment options in newer syntax.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "ca6923ec-43f5-4c26-8421-30b358244835",
+        "a35cd04e-fe95-459d-8dc0-b98664990ff0"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 10
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 12
+        }
+      ],
+      "evidence_snippet": "By default, two null values are not considered equal in this comparison.",
+      "expected_facts": [
+        "default treats NULLs as distinct for UNIQUE",
+        "multiple NULLs can therefore be allowed"
+      ],
+      "category": "constraints",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-005",
+      "dataset_version": "postgresql-v1",
+      "question": "What does PostgreSQL do automatically when a primary key is added?",
+      "ground_truth_answer": "It creates a unique B-tree index on the primary-key column or column group and forces those columns to be NOT NULL. A table can have only one primary key, though it can have multiple UNIQUE constraints.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "4ae7a7c9-beb2-4fd2-917f-665980d23b52",
+        "46c8c9de-b0d8-4b52-b4d7-ab3675be79f0"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 14
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 15
+        }
+      ],
+      "evidence_snippet": "Adding a primary key will automatically create a unique B-tree index ... and will force the column(s) to be marked NOT NULL.",
+      "expected_facts": [
+        "unique B-tree index is created",
+        "primary-key columns become NOT NULL",
+        "only one primary key per table"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-006",
+      "dataset_version": "postgresql-v1",
+      "question": "What does a foreign key ensure when orders.product_no references products.product_no?",
+      "ground_truth_answer": "For non-NULL product_no values, the referenced product must exist in products. The foreign key prevents an order from referring to a nonexistent product.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "a7df4b60-5752-4743-ba28-cb4a2403f10e",
+        "8c7e5803-dcd9-4841-b29a-a4a77bf68f95"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 16
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 17
+        }
+      ],
+      "evidence_snippet": "It is now impossible to create orders with non-NULL product_no entries that do not appear in the products table.",
+      "expected_facts": [
+        "referenced value must exist",
+        "the rule applies to non-NULL foreign-key values"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-007",
+      "dataset_version": "postgresql-v1",
+      "question": "What is the difference between ON DELETE RESTRICT and ON DELETE CASCADE?",
+      "ground_truth_answer": "RESTRICT prevents deletion of a referenced row. CASCADE automatically deletes rows that reference the deleted row. RESTRICT does not defer its check until later in the transaction.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "a1c225cc-ca8f-447c-b2f0-11fdc867002d",
+        "5247853c-aa74-4cf2-8a82-4aff15db3944"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 20
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 21
+        }
+      ],
+      "evidence_snippet": "RESTRICT ... prevents deletion of a referenced row. CASCADE specifies that when a referenced row is deleted, rows referencing it should be automatically deleted as well.",
+      "expected_facts": [
+        "RESTRICT blocks referenced-row deletion",
+        "CASCADE deletes referencing rows",
+        "RESTRICT is not deferred"
+      ],
+      "category": "constraints",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-008",
+      "dataset_version": "postgresql-v1",
+      "question": "Why does PostgreSQL require a foreign key to reference a suitable unique key?",
+      "ground_truth_answer": "Referenced columns must be backed by a non-partial unique index or an appropriate primary/unique constraint. This gives PostgreSQL a guaranteed unique target and an index for efficient checks.",
+      "relevant_document_ids": [
+        "f73a6d41-6136-40f8-a2a0-1fc89f567270"
+      ],
+      "relevant_chunk_ids": [
+        "190e18bc-349c-485e-a194-0b262aa71f9a",
+        "4f8ef0d2-99d4-41a4-bd23-ff7acae66284"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 26
+        },
+        {
+          "filename": "PostgreSQL_18_Constraints_RAG_10.pdf",
+          "chunk_index": 27
+        }
+      ],
+      "evidence_snippet": "The referenced columns ... must be from a non-partial unique index. This means that the referenced columns always have an index to allow efficient lookups.",
+      "expected_facts": [
+        "referenced columns need a non-partial unique index or equivalent constraint",
+        "supports efficient matching and referential checks"
+      ],
+      "category": "constraints",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-009",
+      "dataset_version": "postgresql-v1",
+      "question": "What is a generated column in PostgreSQL?",
+      "ground_truth_answer": "A generated column is a column whose value is computed from other columns rather than being directly supplied by the user. It is similar to a view, but at the column level.",
+      "relevant_document_ids": [
+        "9c070a00-fa5b-4e88-acc7-20abb715e622"
+      ],
+      "relevant_chunk_ids": [
+        "ae8ba6d8-ab11-4495-b4eb-8a7393e0ef3c"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 0
+        }
+      ],
+      "evidence_snippet": "A generated column is a special column that is always computed from other columns.",
+      "expected_facts": [
+        "computed from other columns",
+        "not directly user-written",
+        "column-level analogue of a view"
+      ],
+      "category": "generated_columns",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-010",
+      "dataset_version": "postgresql-v1",
+      "question": "Are PostgreSQL generated columns stored by default or virtual by default?",
+      "ground_truth_answer": "They are virtual by default. The VIRTUAL or STORED keyword can be used to make the desired kind explicit.",
+      "relevant_document_ids": [
+        "9c070a00-fa5b-4e88-acc7-20abb715e622"
+      ],
+      "relevant_chunk_ids": [
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "A generated column is by default of the virtual kind. Use the keywords VIRTUAL or STORED to make the choice explicit.",
+      "expected_facts": [
+        "VIRTUAL is the default",
+        "VIRTUAL or STORED can be stated explicitly"
+      ],
+      "category": "generated_columns",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-011",
+      "dataset_version": "postgresql-v1",
+      "question": "Can an application directly insert or update a generated column's value?",
+      "ground_truth_answer": "No. A generated column cannot be written to directly; PostgreSQL computes its value from the generation expression and the base columns.",
+      "relevant_document_ids": [
+        "9c070a00-fa5b-4e88-acc7-20abb715e622"
+      ],
+      "relevant_chunk_ids": [
+        "956bdd58-a1a9-41c1-8434-6f876994b2f1",
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "A generated column cannot be written to directly.",
+      "expected_facts": [
+        "generated column cannot be written directly",
+        "value is computed"
+      ],
+      "category": "generated_columns",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-012",
+      "dataset_version": "postgresql-v1",
+      "question": "What restrictions apply to a generated column's generation expression?",
+      "ground_truth_answer": "The expression can use only immutable functions; it cannot contain subqueries or reference anything other than the current row in the ways allowed by the generated-column rules. A generated column also cannot be part of a partition key.",
+      "relevant_document_ids": [
+        "9c070a00-fa5b-4e88-acc7-20abb715e622"
+      ],
+      "relevant_chunk_ids": [
+        "2852f9ea-6eb6-4671-90ef-e04726fb10e5",
+        "98181f93-41a6-4eb1-a359-76738eb8f8d4"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 2
+        },
+        {
+          "filename": "PostgreSQL_18_Generated_Columns_RAG_7.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "The generation expression can only use immutable functions and cannot use subqueries ... A generated column cannot be part of a partition key.",
+      "expected_facts": [
+        "immutable functions only",
+        "no subqueries",
+        "cannot be a partition key"
+      ],
+      "category": "generated_columns",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-013",
+      "dataset_version": "postgresql-v1",
+      "question": "Which index methods does PostgreSQL documentation list as built-in or available index types?",
+      "ground_truth_answer": "The documentation lists B-tree, Hash, GiST, SP-GiST, GIN, BRIN, and the bloom extension.",
+      "relevant_document_ids": [
+        "7e4a1bb0-19cd-4410-8309-3a2786c26a85"
+      ],
+      "relevant_chunk_ids": [
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 0
+        }
+      ],
+      "evidence_snippet": "PostgreSQL provides several index types: B-tree, Hash, GiST, SP-GiST, GIN, BRIN, and the extension bloom.",
+      "expected_facts": [
+        "B-tree",
+        "Hash",
+        "GiST",
+        "SP-GiST",
+        "GIN",
+        "BRIN",
+        "bloom extension"
+      ],
+      "category": "index_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-014",
+      "dataset_version": "postgresql-v1",
+      "question": "Which kinds of comparisons are B-tree indexes especially suited for?",
+      "ground_truth_answer": "B-tree indexes support equality and ordering comparisons, and can support operations such as BETWEEN and IN. IS NULL and IS NOT NULL conditions can also use a B-tree index.",
+      "relevant_document_ids": [
+        "7e4a1bb0-19cd-4410-8309-3a2786c26a85"
+      ],
+      "relevant_chunk_ids": [
+        "feaf0a93-52a3-4833-ac26-2992e484a2b3",
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "B-tree ... operators ... such as BETWEEN and IN ... IS NULL or IS NOT NULL condition ... can be used with a B-tree index.",
+      "expected_facts": [
+        "equality and range/order comparisons",
+        "BETWEEN and IN",
+        "IS NULL and IS NOT NULL"
+      ],
+      "category": "index_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-015",
+      "dataset_version": "postgresql-v1",
+      "question": "Can a B-tree index help a query that needs rows in sorted order?",
+      "ground_truth_answer": "Yes. PostgreSQL can use a B-tree index to retrieve rows in sorted order, although using the index is not always faster than scanning and sorting.",
+      "relevant_document_ids": [
+        "7e4a1bb0-19cd-4410-8309-3a2786c26a85"
+      ],
+      "relevant_chunk_ids": [
+        "a17546fc-adb3-4b0c-91e2-9e8fe66558b4",
+        "a67cf648-d01c-44af-bd10-6501df0912e9"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "B-tree indexes can also be used to retrieve data in sorted order. This is not always faster than a simple scan and sort.",
+      "expected_facts": [
+        "B-tree can return sorted data",
+        "not always faster than scan plus sort"
+      ],
+      "category": "index_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-016",
+      "dataset_version": "postgresql-v1",
+      "question": "What does a PostgreSQL Hash index store?",
+      "ground_truth_answer": "A Hash index stores a 32-bit hash code derived from the indexed value.",
+      "relevant_document_ids": [
+        "7e4a1bb0-19cd-4410-8309-3a2786c26a85"
+      ],
+      "relevant_chunk_ids": [
+        "a67cf648-d01c-44af-bd10-6501df0912e9"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "Hash indexes store a 32-bit hash code derived from the value of the indexed column.",
+      "expected_facts": [
+        "stores a 32-bit hash code",
+        "hash code is derived from the value"
+      ],
+      "category": "index_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-017",
+      "dataset_version": "postgresql-v1",
+      "question": "What data is a GIN index particularly appropriate for?",
+      "ground_truth_answer": "GIN is an inverted index suited to values containing multiple components, such as arrays. It stores entries for component values rather than treating the entire value as one indivisible item.",
+      "relevant_document_ids": [
+        "7e4a1bb0-19cd-4410-8309-3a2786c26a85"
+      ],
+      "relevant_chunk_ids": [
+        "ac212c61-4138-402f-8fb5-2848c37df5a7",
+        "3111f596-1be5-4515-a848-95501659e8bb"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 5
+        },
+        {
+          "filename": "PostgreSQL_18_Index_Types_RAG_4.pdf",
+          "chunk_index": 6
+        }
+      ],
+      "evidence_snippet": "GIN indexes are 'inverted indexes' which are appropriate for data values that contain multiple component values, such as arrays.",
+      "expected_facts": [
+        "GIN is an inverted index",
+        "good for multi-component values such as arrays"
+      ],
+      "category": "index_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-018",
+      "dataset_version": "postgresql-v1",
+      "question": "Which organization is credited with portions of the PostgreSQL database system in the legal notice?",
+      "ground_truth_answer": "The legal notice credits the PostgreSQL Global Development Group with portions of the PostgreSQL Database Management System.",
+      "relevant_document_ids": [
+        "659aa781-a40d-47cc-b1e0-7b979831b44b"
+      ],
+      "relevant_chunk_ids": [
+        "acf047e9-0727-4720-922a-8c112a3418ac"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Legal_Notice_RAG_1.pdf",
+          "chunk_index": 0
+        }
+      ],
+      "evidence_snippet": "Portions Copyright 1996-2026, PostgreSQL Global Development Group",
+      "expected_facts": [
+        "PostgreSQL Global Development Group is credited",
+        "notice concerns portions of the PostgreSQL database system"
+      ],
+      "category": "legal_notice",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-019",
+      "dataset_version": "postgresql-v1",
+      "question": "Do PostgreSQL's documented hard limits always determine the practical limit for an application?",
+      "ground_truth_answer": "No. Performance limitations or available disk space may become limiting factors before PostgreSQL's absolute hard limits are reached.",
+      "relevant_document_ids": [
+        "88e83020-975d-4234-af89-ad5dd1bb17e4"
+      ],
+      "relevant_chunk_ids": [
+        "3b092390-b5b9-4bd4-94f0-12b2555b47b0"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Limits_RAG_2.pdf",
+          "chunk_index": 0
+        }
+      ],
+      "evidence_snippet": "Practical limits, such as performance limitations or available disk space may apply before absolute hard limits are reached.",
+      "expected_facts": [
+        "practical limits can occur first",
+        "performance and disk space are examples"
+      ],
+      "category": "limits",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-020",
+      "dataset_version": "postgresql-v1",
+      "question": "What is the documented maximum length of a PostgreSQL identifier, and how is it measured?",
+      "ground_truth_answer": "The documented identifier length is 63 bytes. The limit is measured in bytes, not necessarily characters.",
+      "relevant_document_ids": [
+        "88e83020-975d-4234-af89-ad5dd1bb17e4"
+      ],
+      "relevant_chunk_ids": [
+        "b9457961-3362-40ac-bd24-2443125d5667"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Limits_RAG_2.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "maximum identifier length 63 bytes",
+      "expected_facts": [
+        "63-byte identifier limit",
+        "measured in bytes"
+      ],
+      "category": "limits",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-021",
+      "dataset_version": "postgresql-v1",
+      "question": "What can reduce the effective maximum number of columns in a PostgreSQL table?",
+      "ground_truth_answer": "The table's maximum column count is affected by tuple storage limits, and dropped columns still contribute to the column limit. Thus, dropping a column does not necessarily free a slot for another column.",
+      "relevant_document_ids": [
+        "88e83020-975d-4234-af89-ad5dd1bb17e4"
+      ],
+      "relevant_chunk_ids": [
+        "b9457961-3362-40ac-bd24-2443125d5667",
+        "f79c040c-9fa1-48ff-ac98-e6f063cf9aa8"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Limits_RAG_2.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Limits_RAG_2.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "Columns that have been dropped from the table also contribute to the maximum column limit.",
+      "expected_facts": [
+        "dropped columns count toward the maximum",
+        "tuple/storage constraints can further limit columns"
+      ],
+      "category": "limits",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-022",
+      "dataset_version": "postgresql-v1",
+      "question": "Which SQL command is used to add a column to an existing PostgreSQL table?",
+      "ground_truth_answer": "Use ALTER TABLE with ADD COLUMN, for example: ALTER TABLE products ADD COLUMN description text.",
+      "relevant_document_ids": [
+        "b76f2cf3-a6e5-4ca1-a8e4-134e453e47f0"
+      ],
+      "relevant_chunk_ids": [
+        "681e37b7-7905-4d74-9845-34a635d304bf",
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "ALTER TABLE products ADD COLUMN description text;",
+      "expected_facts": [
+        "ALTER TABLE modifies existing tables",
+        "ADD COLUMN adds a column"
+      ],
+      "category": "modifying_tables",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-023",
+      "dataset_version": "postgresql-v1",
+      "question": "What approach may be preferable when adding a column that must later be filled with mostly nondefault values?",
+      "ground_truth_answer": "It may be preferable to add the column without a default, populate it with UPDATE, and then set any desired default afterward. This can avoid an expensive table rewrite in relevant cases.",
+      "relevant_document_ids": [
+        "b76f2cf3-a6e5-4ca1-a8e4-134e453e47f0"
+      ],
+      "relevant_chunk_ids": [
+        "43474bf5-2fe5-4c90-acfd-805041fcb2f1",
+        "a4bb489c-d671-4425-aebc-63ddaa41acd5"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "it may be preferable to add the column with no default, insert the correct values using UPDATE, and then add any desired default",
+      "expected_facts": [
+        "add column without default",
+        "populate values with UPDATE",
+        "set default afterward if needed"
+      ],
+      "category": "modifying_tables",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-024",
+      "dataset_version": "postgresql-v1",
+      "question": "What happens to a column's data and related table constraints when the column is dropped?",
+      "ground_truth_answer": "The column's data disappears, and table constraints involving that column are dropped too. PostgreSQL may prevent the operation or require dependent objects to be addressed if other objects reference it.",
+      "relevant_document_ids": [
+        "b76f2cf3-a6e5-4ca1-a8e4-134e453e47f0"
+      ],
+      "relevant_chunk_ids": [
+        "fc27f13e-3e3d-4c6e-bdcc-2e0818599fdc"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "Whatever data was in the column disappears. Table constraints involving the column are dropped, too.",
+      "expected_facts": [
+        "column data disappears",
+        "constraints involving the column are dropped",
+        "dependencies may matter"
+      ],
+      "category": "modifying_tables",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-025",
+      "dataset_version": "postgresql-v1",
+      "question": "How can you add or remove a NOT NULL property from an existing column?",
+      "ground_truth_answer": "Use ALTER TABLE ... ALTER COLUMN ... SET NOT NULL to add it, and ALTER TABLE ... ALTER COLUMN ... DROP NOT NULL to remove it.",
+      "relevant_document_ids": [
+        "b76f2cf3-a6e5-4ca1-a8e4-134e453e47f0"
+      ],
+      "relevant_chunk_ids": [
+        "dd58c8e0-4254-47d4-a10e-355a44dc5d51",
+        "84c8e492-7952-4abf-8fc9-8871715c0993"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 4
+        },
+        {
+          "filename": "PostgreSQL_18_Modifying_Tables_RAG_8.pdf",
+          "chunk_index": 5
+        }
+      ],
+      "evidence_snippet": "ALTER TABLE products ALTER COLUMN product_no SET NOT NULL; ... ALTER COLUMN product_no DROP NOT NULL",
+      "expected_facts": [
+        "SET NOT NULL adds the property",
+        "DROP NOT NULL removes it"
+      ],
+      "category": "modifying_tables",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-026",
+      "dataset_version": "postgresql-v1",
+      "question": "What broad numeric type families does PostgreSQL provide?",
+      "ground_truth_answer": "PostgreSQL provides integer types, exact decimal numeric types, floating-point types, and serial-style types that are convenient for auto-incrementing identifiers.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "fcfa5119-5fcf-4cff-8c91-8dace492cd57",
+        "f47cf77e-db91-4033-9111-60f7f07c8242"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "Numeric types consist of two-, four-, and eight-byte integers, four- and eight-byte floating-point numbers, and selectable-precision decimal numbers.",
+      "expected_facts": [
+        "integer types",
+        "numeric exact decimal",
+        "floating-point types",
+        "serial types"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-027",
+      "dataset_version": "postgresql-v1",
+      "question": "Why is integer often the default choice among integer types?",
+      "ground_truth_answer": "Integer offers a good balance among range, storage size, and performance. Smallint is generally chosen when disk space is especially constrained, while bigint is for larger ranges.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "f47cf77e-db91-4033-9111-60f7f07c8242",
+        "2db06a25-b86d-42c3-9ec8-fb91d91f298d"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 1
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "The type integer is the common choice, as it offers the best balance between range, storage size, and performance.",
+      "expected_facts": [
+        "integer balances range/storage/performance",
+        "smallint when space is tight",
+        "bigint for larger range"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-028",
+      "dataset_version": "postgresql-v1",
+      "question": "In NUMERIC(precision, scale), what do precision and scale mean?",
+      "ground_truth_answer": "Precision is the total number of significant digits in the whole number, while scale is the number of digits to the right of the decimal point. PostgreSQL also permits negative scale in the documented syntax.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "b545c5f7-2a13-4b34-9fe8-4c80fd5c32c4",
+        "a4523e3f-5858-4f34-b11c-216f86e47047"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 3
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 4
+        }
+      ],
+      "evidence_snippet": "The precision of a numeric is the total count of significant digits ... the scale ... is the number of digits to the right of the decimal point.",
+      "expected_facts": [
+        "precision is total significant digits",
+        "scale is digits after decimal point",
+        "scale may be negative"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-029",
+      "dataset_version": "postgresql-v1",
+      "question": "What happens when a value has more fractional digits than a NUMERIC column's declared scale?",
+      "ground_truth_answer": "PostgreSQL rounds the value to the declared scale before storing it.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "a4523e3f-5858-4f34-b11c-216f86e47047",
+        "82331fdb-1a4f-4922-b1bf-6f6c8ebdec7a"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 4
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 5
+        }
+      ],
+      "evidence_snippet": "If the scale of a value to be stored is greater than the declared scale of the column, the system will round the value",
+      "expected_facts": [
+        "scale limits fractional digits",
+        "excess fractional digits are rounded"
+      ],
+      "category": "numeric_types",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-030",
+      "dataset_version": "postgresql-v1",
+      "question": "How does PostgreSQL's numeric type differ from floating-point types when exactness matters?",
+      "ground_truth_answer": "NUMERIC provides exact decimal storage and calculations within its supported limits, while floating-point types are inexact. NUMERIC is often preferable for values such as monetary amounts where exactness is required.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "eabe8ec8-ab2f-4e46-aee8-b6528c619661",
+        "8836b67f-7e28-4fa3-8297-8c13df244f41"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 7
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 8
+        }
+      ],
+      "evidence_snippet": "If you require exact storage and calculations ... use numeric; floating-point types are inexact.",
+      "expected_facts": [
+        "NUMERIC is exact decimal arithmetic",
+        "floating point is inexact",
+        "money-like values often need exactness"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-031",
+      "dataset_version": "postgresql-v1",
+      "question": "How does PostgreSQL order NaN values for floating-point comparisons and sorting?",
+      "ground_truth_answer": "PostgreSQL treats NaN values as equal to one another and greater than all non-NaN values, allowing floating-point values to be sorted and indexed consistently.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "fd232e8a-bdb5-48d0-b743-7a495587199d"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 15
+        }
+      ],
+      "evidence_snippet": "PostgreSQL treats NaN values as equal, and greater than all non-NaN values.",
+      "expected_facts": [
+        "NaN values compare equal to each other",
+        "NaN sorts greater than non-NaN values"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-032",
+      "dataset_version": "postgresql-v1",
+      "question": "How are SERIAL-style columns implemented, and why can their generated values have gaps?",
+      "ground_truth_answer": "SERIAL types are a notational convenience implemented using integer columns and sequences. The sequence is owned by the column and is dropped with it, but sequence values can have gaps, so they should not be assumed to be gapless.",
+      "relevant_document_ids": [
+        "86127ec8-ada3-4f1c-9d18-1ed1867c8e69"
+      ],
+      "relevant_chunk_ids": [
+        "8205e813-df2f-43e2-a3ae-deb3a6c0a8dd",
+        "0071bc65-ff3f-436d-93d6-245e131bdd4a",
+        "62529563-021d-4310-977b-a34994e3b340"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 16
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 17
+        },
+        {
+          "filename": "PostgreSQL_18_Numeric_Types_RAG_3.pdf",
+          "chunk_index": 18
+        }
+      ],
+      "evidence_snippet": "Because smallserial, serial and bigserial are implemented using sequences, there may be holes or gaps in the sequence of values.",
+      "expected_facts": [
+        "SERIAL uses a sequence",
+        "sequence owned by column",
+        "gaps can occur"
+      ],
+      "category": "numeric_types",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-033",
+      "dataset_version": "postgresql-v1",
+      "question": "Who normally owns a PostgreSQL object when it is created?",
+      "ground_truth_answer": "The role that executed the object-creation statement normally becomes its owner. Ownership inherently includes the ability to alter or destroy the object, which is distinct from ordinary grantable privileges.",
+      "relevant_document_ids": [
+        "ed92dc30-b3f7-4dad-996a-01f9581b7f2f"
+      ],
+      "relevant_chunk_ids": [
+        "ab365cc5-d592-4c39-b442-7457eb70b530",
+        "e5336a1d-b4d1-4b6a-a404-a3f5f94f48c5"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "The owner is normally the role that executed the creation statement.",
+      "expected_facts": [
+        "creator role normally owns object",
+        "ownership includes alter/destroy authority",
+        "ownership rights are not ordinary privileges"
+      ],
+      "category": "privileges",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-034",
+      "dataset_version": "postgresql-v1",
+      "question": "What does the special role name PUBLIC mean in GRANT statements?",
+      "ground_truth_answer": "PUBLIC represents all roles on the system, so granting a privilege to PUBLIC makes that privilege available to every role, subject to other database rules.",
+      "relevant_document_ids": [
+        "ed92dc30-b3f7-4dad-996a-01f9581b7f2f"
+      ],
+      "relevant_chunk_ids": [
+        "f02fea26-9c15-4d98-961e-845eb7c7135b"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 2
+        }
+      ],
+      "evidence_snippet": "The special 'role' name PUBLIC can be used to grant a privilege to every role on the system.",
+      "expected_facts": [
+        "PUBLIC means every role",
+        "GRANT to PUBLIC applies system-wide to roles"
+      ],
+      "category": "privileges",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-035",
+      "dataset_version": "postgresql-v1",
+      "question": "What does GRANT ALL mean when granting privileges on an object?",
+      "ground_truth_answer": "It grants all privileges that are relevant for that particular object type, rather than every conceivable privilege across all object types.",
+      "relevant_document_ids": [
+        "ed92dc30-b3f7-4dad-996a-01f9581b7f2f"
+      ],
+      "relevant_chunk_ids": [
+        "f02fea26-9c15-4d98-961e-845eb7c7135b",
+        "bd98c01e-9e6d-43a3-846b-12c25ecedadd"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 2
+        },
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "Writing ALL in place of a specific privilege grants all privileges that are relevant for the object type.",
+      "expected_facts": [
+        "ALL is object-type specific",
+        "grants all relevant privileges for that object"
+      ],
+      "category": "privileges",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-036",
+      "dataset_version": "postgresql-v1",
+      "question": "What does the EXECUTE privilege allow a role to do?",
+      "ground_truth_answer": "EXECUTE allows a role to call a function or procedure, including operators implemented on top of that function.",
+      "relevant_document_ids": [
+        "ed92dc30-b3f7-4dad-996a-01f9581b7f2f"
+      ],
+      "relevant_chunk_ids": [
+        "4abfc3f9-ba02-4157-b1e0-f5eb24bfaacf"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 7
+        }
+      ],
+      "evidence_snippet": "EXECUTE Allows calling a function or procedure, including use of any operators that are implemented on top of the function.",
+      "expected_facts": [
+        "permits calling functions",
+        "permits calling procedures",
+        "includes function-backed operators"
+      ],
+      "category": "privileges",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-037",
+      "dataset_version": "postgresql-v1",
+      "question": "What does ALTER DEFAULT PRIVILEGES affect?",
+      "ground_truth_answer": "It changes the default privileges that will be applied to objects created in the relevant scope in the future. The privileges display distinguishes altered defaults with explicit entries; built-in defaults alone are referred to as default privileges.",
+      "relevant_document_ids": [
+        "ed92dc30-b3f7-4dad-996a-01f9581b7f2f"
+      ],
+      "relevant_chunk_ids": [
+        "e5f324ad-a0b0-405f-9a7a-a84446106a39",
+        "cf95645c-813b-4b11-856d-1c5b59223dee"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 10
+        },
+        {
+          "filename": "PostgreSQL_18_Privileges_RAG_5.pdf",
+          "chunk_index": 15
+        }
+      ],
+      "evidence_snippet": "An object whose privileges have been affected by an ALTER DEFAULT PRIVILEGES command will always be shown with an explicit privilege entry",
+      "expected_facts": [
+        "affects future objects in scope",
+        "changed defaults appear explicitly",
+        "built-in defaults are distinguished"
+      ],
+      "category": "privileges",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-038",
+      "dataset_version": "postgresql-v1",
+      "question": "What happens when row-level security is enabled on a table but no policy applies?",
+      "ground_truth_answer": "PostgreSQL uses default-deny behavior: no rows are visible or modifiable through ordinary row-level operations unless an applicable policy permits them. Table-wide operations such as TRUNCATE are not governed by row security in the same way.",
+      "relevant_document_ids": [
+        "fe8ee8d2-f340-4562-9779-e4a7a4605f9a"
+      ],
+      "relevant_chunk_ids": [
+        "a69274bd-2f24-4ea8-9381-6fc555d135d3",
+        "754a1564-bfef-4369-a550-328bc7b6e497"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "If no policy exists for the table, a default-deny policy is used, meaning that no rows are visible or can be modified.",
+      "expected_facts": [
+        "default deny if no policy",
+        "no rows visible or modifiable",
+        "TRUNCATE is not subject to row policies"
+      ],
+      "category": "row_security",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-039",
+      "dataset_version": "postgresql-v1",
+      "question": "What is the difference between USING and WITH CHECK in a row-security policy?",
+      "ground_truth_answer": "USING determines which existing rows a command can access. WITH CHECK determines whether new row values produced by INSERT or UPDATE are allowed. If omitted in the described simple policy, WITH CHECK can implicitly match USING.",
+      "relevant_document_ids": [
+        "fe8ee8d2-f340-4562-9779-e4a7a4605f9a"
+      ],
+      "relevant_chunk_ids": [
+        "88fb76c0-98fb-4919-9655-5859a917fea9",
+        "4fefd605-b023-44b2-81a0-37b17325cb57"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 2
+        },
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 4
+        }
+      ],
+      "evidence_snippet": "Separate expressions may be specified to provide independent control over the rows which are visible and the rows which are allowed to be modified.",
+      "expected_facts": [
+        "USING filters existing rows",
+        "WITH CHECK validates inserted/updated row values",
+        "simple policy may use USING as WITH CHECK"
+      ],
+      "category": "row_security",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-040",
+      "dataset_version": "postgresql-v1",
+      "question": "How are multiple permissive and restrictive row-security policies combined?",
+      "ground_truth_answer": "Permissive policies, the default, are combined with OR. Restrictive policies are combined with AND, so restrictive policies impose additional requirements.",
+      "relevant_document_ids": [
+        "fe8ee8d2-f340-4562-9779-e4a7a4605f9a"
+      ],
+      "relevant_chunk_ids": [
+        "6f2e9f34-dae5-4cd5-b80c-a7b06f1fd2d9"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "When multiple policies apply ... combined using either OR (for permissive policies, which are the default) or using AND (for restrictive policies).",
+      "expected_facts": [
+        "permissive policies combine with OR",
+        "restrictive policies combine with AND"
+      ],
+      "category": "row_security",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-041",
+      "dataset_version": "postgresql-v1",
+      "question": "If row security is disabled on a table, are its policies deleted?",
+      "ground_truth_answer": "No. Disabling row security leaves the policies defined on the table but causes them to be ignored until row security is enabled again. Standard SQL privileges still apply.",
+      "relevant_document_ids": [
+        "fe8ee8d2-f340-4562-9779-e4a7a4605f9a"
+      ],
+      "relevant_chunk_ids": [
+        "804ad208-08d4-4adf-a37d-d90b331d6366",
+        "00d52deb-7778-413d-b533-4b4a4bed8da7"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 5
+        },
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 6
+        }
+      ],
+      "evidence_snippet": "Disabling row security does not remove any policies that are defined on the table; they are simply ignored.",
+      "expected_facts": [
+        "policies remain defined",
+        "disabled RLS ignores policies",
+        "SQL privileges still apply"
+      ],
+      "category": "row_security",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-042",
+      "dataset_version": "postgresql-v1",
+      "question": "Do superusers and roles with BYPASSRLS always obey row-security policies?",
+      "ground_truth_answer": "No. Superusers and roles with the BYPASSRLS attribute bypass row security. Table owners normally bypass it too, unless FORCE ROW LEVEL SECURITY is used; referential-integrity checks also bypass row security.",
+      "relevant_document_ids": [
+        "fe8ee8d2-f340-4562-9779-e4a7a4605f9a"
+      ],
+      "relevant_chunk_ids": [
+        "81c4d05e-49bc-4fed-b4c5-32e948ad1052",
+        "c69525ee-fd80-42cb-b626-281976477479"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 12
+        },
+        {
+          "filename": "PostgreSQL_18_Row_Security_Policies_RAG_6.pdf",
+          "chunk_index": 13
+        }
+      ],
+      "evidence_snippet": "Superusers and roles that have the BYPASSRLS attribute always bypass the row security system.",
+      "expected_facts": [
+        "superusers bypass RLS",
+        "BYPASSRLS roles bypass RLS",
+        "table owner normally bypasses unless FORCE RLS",
+        "referential integrity checks bypass RLS"
+      ],
+      "category": "row_security",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-043",
+      "dataset_version": "postgresql-v1",
+      "question": "What is table partitioning, and what are two benefits it can provide?",
+      "ground_truth_answer": "Partitioning splits one logical large table into smaller physical pieces. It can improve queries that touch a small subset of partitions and make bulk deletion or loading faster by adding or removing partitions instead of processing rows individually.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "2b59e339-9714-4a38-aede-3fe3a34388d2",
+        "e52d8484-1653-4c6e-9463-3d524431bf80"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 0
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 1
+        }
+      ],
+      "evidence_snippet": "Partitioning refers to splitting what is logically one large table into smaller physical pieces.",
+      "expected_facts": [
+        "one logical table split into physical partitions",
+        "can improve targeted query performance",
+        "can speed bulk loading/deletion"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-044",
+      "dataset_version": "postgresql-v1",
+      "question": "What are PostgreSQL's three declarative partitioning methods, and how do they differ?",
+      "ground_truth_answer": "Range partitioning assigns non-overlapping value ranges; list partitioning assigns explicitly listed key values; hash partitioning distributes rows according to a hash-derived modulus and remainder.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "35fc1be2-3c75-4f0e-953d-c8f680163c55",
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 2
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 3
+        }
+      ],
+      "evidence_snippet": "Range Partitioning ... List Partitioning ... Hash Partitioning",
+      "expected_facts": [
+        "range uses non-overlapping ranges",
+        "list enumerates key values",
+        "hash uses modulus/remainder of hash"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-045",
+      "dataset_version": "postgresql-v1",
+      "question": "Does a partitioned parent table store the rows itself?",
+      "ground_truth_answer": "No. A declaratively partitioned table is a virtual table with no storage of its own; the actual rows are stored in its partitions, and inserts are routed to the appropriate partition.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "dbfee3ed-e44b-42e7-9a6c-33e301f036c1",
+        "36c18f68-369f-4b3c-9748-ad985c7cab78"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 3
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 4
+        }
+      ],
+      "evidence_snippet": "The partitioned table itself is a 'virtual' table having no storage of its own. Instead, the data belongs to partitions.",
+      "expected_facts": [
+        "parent is virtual",
+        "partitions store rows",
+        "inserts route to appropriate partition"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-046",
+      "dataset_version": "postgresql-v1",
+      "question": "Give an example of a workload where range partitioning by date is useful.",
+      "ground_truth_answer": "A measurements table used for monthly or quarterly reports and retaining only the most recent three years can be range-partitioned by logdate. Old monthly partitions can then be removed as retention advances.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "bb426584-1617-433b-b59f-ed8c074546ec"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 7
+        }
+      ],
+      "evidence_snippet": "keep only the most recent 3 years worth of data ... At the beginning of each month we will remove the oldest month's data.",
+      "expected_facts": [
+        "date-based reporting is a use case",
+        "range partition by logdate",
+        "old monthly partitions can be removed"
+      ],
+      "category": "partitioning",
+      "is_holdout": true
+    },
+    {
+      "id": "pg18-047",
+      "dataset_version": "postgresql-v1",
+      "question": "Why can dropping an old partition be faster than deleting all its rows?",
+      "ground_truth_answer": "Dropping a partition removes the table as a unit instead of deleting each row individually. This can remove millions of records quickly and avoids the VACUUM overhead associated with a bulk DELETE, though it takes a strong lock on the parent in the described example.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "12e2b779-ce16-47e5-b2ea-7dfb7a9e17a3",
+        "f621bbeb-9c44-4f1b-a546-0909dfe4c9fb"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 12
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 13
+        }
+      ],
+      "evidence_snippet": "Dropping an individual partition ... is far faster than a bulk operation. These commands also entirely avoid the VACUUM overhead caused by a bulk DELETE.",
+      "expected_facts": [
+        "drop partition operates on whole table",
+        "avoids per-row bulk delete",
+        "avoids bulk DELETE vacuum overhead"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-048",
+      "dataset_version": "postgresql-v1",
+      "question": "How can you reduce the validation scan when attaching a preloaded table as a partition?",
+      "ground_truth_answer": "Add a CHECK constraint matching the intended partition bounds before ATTACH PARTITION. PostgreSQL can use that constraint to avoid scanning the table to validate the partition constraint, where applicable.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "82585353-f216-4911-b32a-74130af9fa63",
+        "98846a8a-2af6-4a45-b1d6-7fb3ab731534"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 16
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 17
+        }
+      ],
+      "evidence_snippet": "it is recommended to avoid this scan by creating a CHECK constraint matching the expected partition constraint on the table prior to attaching it.",
+      "expected_facts": [
+        "add matching CHECK constraint before attach",
+        "can avoid validation scan"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-049",
+      "dataset_version": "postgresql-v1",
+      "question": "What must be true of a primary key or unique constraint on a partitioned table?",
+      "ground_truth_answer": "The constraint must include all partition-key columns, and the partition key cannot include expressions or function calls for this purpose. Otherwise, uniqueness across different partitions cannot be guaranteed by the separate per-partition indexes.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "704c2bf0-20cb-4b35-87fa-3839bd5afb1b",
+        "1e2faa58-54c3-49bf-a229-d1b889091e87"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 20
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 21
+        }
+      ],
+      "evidence_snippet": "the partition keys must not include any expressions or function calls and the constraint's columns must include all of the partition key columns.",
+      "expected_facts": [
+        "constraint includes all partition key columns",
+        "partition key cannot include expressions/function calls for this constraint",
+        "prevents duplicates across partitions"
+      ],
+      "category": "partitioning",
+      "is_holdout": false
+    },
+    {
+      "id": "pg18-050",
+      "dataset_version": "postgresql-v1",
+      "question": "What is partition pruning, and does it depend on indexes existing on partition-key columns?",
+      "ground_truth_answer": "Partition pruning excludes partitions that cannot contain rows matching the query's WHERE clause, based on partition bounds. It is driven by partition-key constraints, not by indexes, so indexes on partition keys are not required solely to enable pruning.",
+      "relevant_document_ids": [
+        "d8fe9fc7-61ed-4437-a9e1-063339af216d"
+      ],
+      "relevant_chunk_ids": [
+        "33fa9a69-2dcd-4bef-91ff-ab8d78d7f7e7",
+        "03b054fc-37b7-4776-8171-f10877088e35"
+      ],
+      "relevant_chunk_refs": [
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 37
+        },
+        {
+          "filename": "PostgreSQL_18_Table_Partitioning_RAG_9.pdf",
+          "chunk_index": 40
+        }
+      ],
+      "evidence_snippet": "partition pruning ... excludes (prunes) the partition from the query plan. Note that partition pruning is driven only by the constraints defined implicitly by the partition keys, not by the presence of indexes.",
+      "expected_facts": [
+        "pruning excludes impossible partitions",
+        "uses partition bounds/WHERE compatibility",
+        "not driven by indexes"
+      ],
+      "category": "partitioning",
+      "is_holdout": true
+    }
+  ]
+}

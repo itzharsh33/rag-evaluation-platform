@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-rag_app}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_local_only}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro

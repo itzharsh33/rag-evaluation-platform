@@ -10,6 +10,8 @@ type Experiment = {
   dataset_version: string;
   corpus_version: string;
   strategy: string;
+  config_json?: { mode?: string } | null;
+  mode?: string;
   status: string;
   progress: number;
   created_at: string;
@@ -38,6 +40,8 @@ type EvaluationResult = {
 type Failure = EvaluationResult;
 
 type Tab = "all" | "failures";
+
+type DatasetSplit = "all" | "development" | "holdout";
 
 function score(value: number | string | null | undefined) {
   if (value == null || value === "") return "—";
@@ -90,6 +94,14 @@ function statusClasses(status: string) {
   }
 }
 
+function experimentLabel(experiment: Experiment) {
+  const mode =
+    experiment.mode ?? experiment.config_json?.mode ?? "unknown";
+  const date = new Date(experiment.created_at).toLocaleString();
+
+  return `${experiment.strategy} — ${mode} — ${experiment.dataset_version} — ${date} — ${experiment.id.slice(0, 8)}`;
+}
+
 export default function EvaluationPage() {
   const [experiments, setExperiments] = useState<Experiment[]>([]);
   const [selectedId, setSelectedId] = useState("");
@@ -102,14 +114,18 @@ export default function EvaluationPage() {
   const [loadingResults, setLoadingResults] = useState(false);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [datasetSplit, setDatasetSplit] =
+    useState<DatasetSplit>("all");
+  const [showHistory, setShowHistory] = useState(false);
 
   const loadExperiments = useCallback(async () => {
     setLoading(true);
     setError("");
 
     try {
+      const query = showHistory ? "?includeHistory=true" : "";
       const response = await fetch(
-        `${API_BASE_URL}/api/evaluation/experiments`,
+        `${API_BASE_URL}/api/evaluation/experiments${query}`,
       );
 
       if (!response.ok) {
@@ -137,7 +153,7 @@ export default function EvaluationPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [showHistory]);
 
   const loadResults = useCallback(async (experimentId: string) => {
     if (!experimentId) {
@@ -195,9 +211,25 @@ export default function EvaluationPage() {
     void loadResults(selectedId);
   }, [selectedId, loadResults]);
 
+  useEffect(() => {
+  if (
+    filteredExperiments.length > 0 &&
+    !filteredExperiments.some((item) => item.id === selectedId)
+  ) {
+    setSelectedId(filteredExperiments[0].id);
+  }
+}, [datasetSplit, experiments, selectedId]);
+
   const selectedExperiment = experiments.find(
     (experiment) => experiment.id === selectedId,
   );
+
+  const filteredExperiments = experiments.filter((experiment) => {
+    const mode = experiment.mode ?? experiment.config_json?.mode ?? "unknown";
+
+    if (datasetSplit === "all") return true;
+    return mode === datasetSplit;
+  });
 
   const visibleResults = results.filter((result) => {
     const search = searchTerm.trim().toLowerCase();
@@ -253,14 +285,24 @@ export default function EvaluationPage() {
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => void loadExperiments()}
-            disabled={loading}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {loading ? "Refreshing..." : "Refresh"}
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowHistory((current) => !current)}
+              disabled={loading}
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {showHistory ? "Show Latest Only" : "View History"}
+            </button>
+            <button
+              type="button"
+              onClick={() => void loadExperiments()}
+              disabled={loading}
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {loading ? "Refreshing..." : "Refresh"}
+            </button>
+          </div>
         </header>
 
         {/* Error */}
@@ -272,6 +314,27 @@ export default function EvaluationPage() {
             {error}
           </div>
         )}
+
+        <div className="flex flex-wrap gap-2">
+  {(["all", "development", "holdout"] as const).map((split) => (
+    <button
+      key={split}
+      type="button"
+      onClick={() => setDatasetSplit(split)}
+      className={`rounded-lg px-4 py-2 text-sm font-medium ${
+        datasetSplit === split
+          ? "bg-blue-700 text-white"
+          : "border border-slate-300 bg-white text-slate-700"
+      }`}
+    >
+      {split === "all"
+        ? "All Experiments"
+        : split === "development"
+          ? "Development"
+          : "Holdout"}
+    </button>
+  ))}
+</div>
 
         {/* Experiment comparison */}
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -289,7 +352,7 @@ export default function EvaluationPage() {
             <p className="mt-5 text-sm text-slate-500">
               Loading experiments...
             </p>
-          ) : experiments.length === 0 ? (
+          ) : filteredExperiments.length === 0 ? (
             <p className="mt-5 text-sm text-slate-500">
               No experiments saved yet. Run the evaluation benchmark first.
             </p>
@@ -299,6 +362,8 @@ export default function EvaluationPage() {
                 <thead className="border-b bg-slate-50 text-slate-600">
                   <tr>
                     <th className="p-3 font-medium">Strategy</th>
+                    <th className="p-3 font-medium">Mode / ID</th>
+                    <th className="p-3 font-medium">Run date</th>
                     <th className="p-3 font-medium">Status</th>
                     <th className="p-3 font-medium">Recall@5</th>
                     <th className="p-3 font-medium">MRR</th>
@@ -311,7 +376,7 @@ export default function EvaluationPage() {
                 </thead>
 
                 <tbody>
-                  {experiments.map((experiment) => {
+                  {filteredExperiments.map((experiment) => {
                     const isSelected = selectedId === experiment.id;
 
                     return (
@@ -326,6 +391,19 @@ export default function EvaluationPage() {
                           <p className="mt-1 text-xs font-normal text-slate-500">
                             {experiment.dataset_version}
                           </p>
+                        </td>
+
+                        <td className="p-3">
+                          <span className="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium capitalize text-slate-700">
+                            {experiment.mode ?? experiment.config_json?.mode ?? "unknown"}
+                          </span>
+                          <p className="mt-1 text-xs text-slate-500">
+                            ID: {experiment.id.slice(0, 8)}
+                          </p>
+                        </td>
+
+                        <td className="p-3 whitespace-nowrap text-slate-600">
+                          {new Date(experiment.created_at).toLocaleString()}
                         </td>
 
                         <td className="p-3">
@@ -411,10 +489,9 @@ export default function EvaluationPage() {
                   }}
                   className="w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm sm:min-w-[280px]"
                 >
-                  {experiments.map((experiment) => (
+                  {filteredExperiments.map((experiment) => (
                     <option key={experiment.id} value={experiment.id}>
-                      {experiment.strategy} — {experiment.dataset_version} —{" "}
-                      {experiment.id.slice(0, 8)}
+                      {experimentLabel(experiment)}
                     </option>
                   ))}
                 </select>
@@ -797,3 +874,9 @@ function AnswerPanel({
     </div>
   );
 }
+
+
+
+
+
+

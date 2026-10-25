@@ -6,10 +6,7 @@ import { env } from "../src/config/env.js";
 import { openai } from "../src/services/openai.js";
 import { judgeAnswer } from "../src/services/evaluation/judge.js";
 import type { JudgeResult } from "../src/services/evaluation/judge.js";
-import {
-  calculateRetrievalMetrics,
-  calculateExpectedFactCoverage,
-} from "../src/services/evaluation/metrics.js";
+import {calculateRetrievalMetrics} from "../src/services/evaluation/metrics.js";
 import { persistEvaluation } from "../src/services/evaluation/persistence.js";
 
 const API_URL = process.env.BENCHMARK_API_URL ?? "http://localhost:4000";
@@ -195,10 +192,11 @@ async function main() {
 
       const retrieval = calculateRetrievalMetrics(retrievedIds, relevantIds, 5);
 
-      const factCoverage = calculateExpectedFactCoverage(
-        data.answer,
-        question.expected_facts,
-      );
+    //   const factCoverage = calculateExpectedFactCoverage(
+    //     data.answer,
+    //     question.expected_facts,
+    //   );
+
 
       const evidence = await loadEvidence(retrievedIds);
 
@@ -215,7 +213,10 @@ async function main() {
         referenceAnswer: question.ground_truth_answer,
         generatedAnswer: data.answer,
         evidence,
+        expectedFacts: question.expected_facts,
       });
+
+      const factCoverage = judge.expectedFactCoverage;
 
       records.push({
         questionId: question.id,

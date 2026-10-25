@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -42,9 +41,7 @@ type QueryResponse = {
 async function readError(response: Response): Promise<string> {
   try {
     const body = await response.json();
-    return typeof body.error === "string"
-      ? body.error
-      : "The request failed.";
+    return typeof body.error === "string" ? body.error : "The request failed.";
   } catch {
     return "The server returned an invalid response.";
   }
@@ -86,9 +83,7 @@ export default function Home() {
       setDocuments(items);
     } catch (err) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Could not load documents.",
+        err instanceof Error ? err.message : "Could not load documents.",
       );
     } finally {
       setLoadingDocuments(false);
@@ -99,9 +94,7 @@ export default function Home() {
     void loadDocuments();
   }, [loadDocuments]);
 
-  async function handleUpload(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  async function handleUpload(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!file) {
@@ -121,46 +114,74 @@ export default function Home() {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const response = await fetch(
-        `${API_BASE_URL}/api/documents/upload`,
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
+      const response = await fetch(`${API_BASE_URL}/api/documents/upload`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (!response.ok) {
         throw new Error(await readError(response));
       }
 
-      const data = await response.json();
 
-      setNotice(
-        `Uploaded ${selectedFile.name} successfully.`,
-      );
+      const data = await response.json();
+      const documentId = data?.document?.id as string | undefined;
+
       setFile(null);
       formElement.reset();
 
-      await loadDocuments();
-
-      // The upload may succeed even if refreshing the list fails.
-      if (data.error) {
-        setError(data.error);
+      if (!documentId) {
+        setNotice(
+          `Uploaded ${selectedFile.name}, but the server did not return a document ID. Semantic indexing was not started.`,
+        );
+        setError(
+          "Could not start semantic indexing because the document ID is missing.",
+        );
+        await loadDocuments();
+        return;
       }
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Document upload failed.",
+
+      // Fixed chunking has completed. Now index semantic chunks automatically.
+      setNotice(
+        `Uploaded ${selectedFile.name}. Fixed indexing completed; creating semantic chunks...`,
       );
+
+      try {
+        const semanticResponse = await fetch(
+          `${API_BASE_URL}/api/documents/${encodeURIComponent(documentId)}/index-semantic`,
+          { method: "POST" },
+        );
+
+        if (!semanticResponse.ok) {
+          throw new Error(await readError(semanticResponse));
+        }
+
+        const semanticData = await semanticResponse.json();
+
+        setNotice(
+          `Uploaded ${selectedFile.name} successfully. Fixed chunks: ${
+            data.document.chunkCount
+          }; semantic chunks: ${semanticData.chunksCreated}.`,
+        );
+      } catch (semanticError) {
+        setError(
+          `The document and fixed chunks were saved, but semantic indexing failed: ${
+            semanticError instanceof Error
+              ? semanticError.message
+              : "Unknown error"
+          }. Retry semantic indexing for this document.`,
+        );
+      }
+
+      await loadDocuments();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Document upload failed.");
     } finally {
       setUploading(false);
     }
   }
 
-  async function handleAsk(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  async function handleAsk(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const trimmedQuestion = question.trim();
@@ -181,20 +202,17 @@ export default function Home() {
     setResult(null);
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/rag/query`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // Approach A: no documentIds are sent.
-          body: JSON.stringify({
-            question: trimmedQuestion,
-            topK: 5,
-          }),
+      const response = await fetch(`${API_BASE_URL}/api/rag/query`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        // Approach A: no documentIds are sent.
+        body: JSON.stringify({
+          question: trimmedQuestion,
+          topK: 5,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(await readError(response));
@@ -203,11 +221,7 @@ export default function Home() {
       const data: QueryResponse = await response.json();
       setResult(data);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Could not get an answer.",
-      );
+      setError(err instanceof Error ? err.message : "Could not get an answer.");
     } finally {
       setAsking(false);
     }
@@ -239,9 +253,7 @@ export default function Home() {
       await loadDocuments();
     } catch (err) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Could not delete the document.",
+        err instanceof Error ? err.message : "Could not delete the document.",
       );
     } finally {
       setDeletingId(null);
@@ -261,8 +273,8 @@ export default function Home() {
           </h1>
 
           <p className="max-w-2xl text-slate-600">
-            Upload PDF or DOCX files, ask questions, and inspect
-            the evidence retrieved by your RAG system.
+            Upload PDF or DOCX files, ask questions, and inspect the evidence
+            retrieved by your RAG system.
           </p>
         </header>
 
@@ -296,12 +308,9 @@ export default function Home() {
 
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-5">
-            <h2 className="text-xl font-semibold">
-              1. Upload a document
-            </h2>
+            <h2 className="text-xl font-semibold">1. Upload a document</h2>
             <p className="mt-1 text-sm text-slate-600">
-              Supported formats: PDF and DOCX. Maximum file size:
-              10 MB.
+              Supported formats: PDF and DOCX. Maximum file size: 10 MB.
             </p>
           </div>
 
@@ -309,17 +318,13 @@ export default function Home() {
             <input
               type="file"
               accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              onChange={(event) =>
-                setFile(event.target.files?.[0] ?? null)
-              }
+              onChange={(event) => setFile(event.target.files?.[0] ?? null)}
               disabled={uploading}
               className="block w-full rounded-lg border border-slate-300 p-3 text-sm file:mr-4 file:rounded-md file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:font-medium file:text-blue-700"
             />
 
             {file && (
-              <p className="text-sm text-slate-600">
-                Selected: {file.name}
-              </p>
+              <p className="text-sm text-slate-600">Selected: {file.name}</p>
             )}
 
             <button
@@ -335,12 +340,10 @@ export default function Home() {
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-xl font-semibold">
-                2. Your documents
-              </h2>
+              <h2 className="text-xl font-semibold">2. Your documents</h2>
               <p className="mt-1 text-sm text-slate-600">
-                Questions search across all documents in the
-                configured workspace.
+                Questions search across all documents in the configured
+                workspace.
               </p>
             </div>
 
@@ -355,13 +358,10 @@ export default function Home() {
           </div>
 
           {loadingDocuments ? (
-            <p className="text-sm text-slate-500">
-              Loading documents...
-            </p>
+            <p className="text-sm text-slate-500">Loading documents...</p>
           ) : documents.length === 0 ? (
             <p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-600">
-              No documents uploaded yet. Upload a PDF or DOCX to
-              get started.
+              No documents uploaded yet. Upload a PDF or DOCX to get started.
             </p>
           ) : (
             <ul className="divide-y divide-slate-200">
@@ -379,9 +379,7 @@ export default function Home() {
                       {document.page_count != null
                         ? ` · ${document.page_count} pages`
                         : ""}
-                      {document.status
-                        ? ` · ${document.status}`
-                        : ""}
+                      {document.status ? ` · ${document.status}` : ""}
                     </p>
                   </div>
 
@@ -391,9 +389,7 @@ export default function Home() {
                     disabled={deletingId === document.id}
                     className="rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {deletingId === document.id
-                      ? "Deleting..."
-                      : "Delete"}
+                    {deletingId === document.id ? "Deleting..." : "Delete"}
                   </button>
                 </li>
               ))}
@@ -403,20 +399,15 @@ export default function Home() {
 
         <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="mb-5">
-            <h2 className="text-xl font-semibold">
-              3. Ask a question
-            </h2>
+            <h2 className="text-xl font-semibold">3. Ask a question</h2>
             <p className="mt-1 text-sm text-slate-600">
-              You do not need to select documents. Retrieval
-              happens automatically.
+              You do not need to select documents. Retrieval happens
+              automatically.
             </p>
           </div>
 
           <form onSubmit={handleAsk} className="space-y-4">
-            <label
-              htmlFor="question"
-              className="block text-sm font-medium"
-            >
+            <label htmlFor="question" className="block text-sm font-medium">
               Your question
             </label>
 
@@ -437,11 +428,7 @@ export default function Home() {
 
               <button
                 type="submit"
-                disabled={
-                  asking ||
-                  !question.trim() ||
-                  documents.length === 0
-                }
+                disabled={asking || !question.trim() || documents.length === 0}
                 className="rounded-lg bg-blue-700 px-5 py-2.5 font-medium text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {asking ? "Searching and generating..." : "Ask question"}
@@ -454,9 +441,7 @@ export default function Home() {
           <section className="space-y-5">
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <div className="mb-4 flex flex-wrap items-center gap-2">
-                <h2 className="text-xl font-semibold">
-                  Answer
-                </h2>
+                <h2 className="text-xl font-semibold">Answer</h2>
 
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-medium ${
@@ -465,9 +450,7 @@ export default function Home() {
                       : "bg-green-100 text-green-800"
                   }`}
                 >
-                  {result.abstained
-                    ? "Insufficient evidence"
-                    : "Generated"}
+                  {result.abstained ? "Insufficient evidence" : "Generated"}
                 </span>
               </div>
 
@@ -523,14 +506,21 @@ export default function Home() {
             </div>
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-              <h2 className="mb-4 text-xl font-semibold">
-                Request metrics
-              </h2>
+              <h2 className="mb-4 text-xl font-semibold">Request metrics</h2>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <Metric label="Embedding" value={`${result.metrics.embeddingMs} ms`} />
-                <Metric label="Retrieval" value={`${result.metrics.retrievalMs} ms`} />
-                <Metric label="Generation" value={`${result.metrics.generationMs} ms`} />
+                <Metric
+                  label="Embedding"
+                  value={`${result.metrics.embeddingMs} ms`}
+                />
+                <Metric
+                  label="Retrieval"
+                  value={`${result.metrics.retrievalMs} ms`}
+                />
+                <Metric
+                  label="Generation"
+                  value={`${result.metrics.generationMs} ms`}
+                />
                 <Metric label="Total" value={`${result.metrics.totalMs} ms`} />
                 <Metric
                   label="Prompt tokens"
@@ -560,19 +550,11 @@ export default function Home() {
   );
 }
 
-function Metric({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) {
+function Metric({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-lg bg-slate-50 p-3">
       <p className="text-xs text-slate-500">{label}</p>
-      <p className="mt-1 break-words text-lg font-semibold">
-        {value}
-      </p>
+      <p className="mt-1 break-words text-lg font-semibold">{value}</p>
     </div>
   );
 }

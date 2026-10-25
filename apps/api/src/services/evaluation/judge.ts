@@ -14,12 +14,14 @@ export interface JudgeInput {
   referenceAnswer: string;
   generatedAnswer: string;
   evidence: string[];
+  expectedFacts: string[];
 }
 
 export interface JudgeResult {
   correctness: number;
   faithfulness: number;
   relevancy: number;
+  expectedFactCoverage: number | null;
   failureType: FailureType;
   correctAnswerWrongEvidence: boolean;
   reason: string;
@@ -81,6 +83,17 @@ Unsupported factual claims should lower this score.
 relevancy:
 How directly and completely does the answer address the question?
 
+expectedFactCoverage:
+Evaluate each expected fact independently against the generated answer.
+Count a fact as covered if the answer conveys its meaning correctly,
+even when it uses different words or sentence structure.
+
+Do not require exact text matches.
+Do not count a fact as covered if it is missing, contradicted,
+or only vaguely implied.
+Return the fraction of expected facts that are covered, between 0 and 1.
+If there are no expected facts, return null.
+
 Classify the primary failure:
 - none: no material failure
 - retrieval_failure: evidence is missing or inadequate
@@ -103,6 +116,7 @@ Return JSON only, with this exact shape:
   "correctness": 0.0,
   "faithfulness": 0.0,
   "relevancy": 0.0,
+  "expectedFactCoverage": 0.0,
   "failureType": "none",
   "correctAnswerWrongEvidence": false,
   "reason": "Short explanation"
@@ -116,6 +130,7 @@ Return JSON only, with this exact shape:
           referenceAnswer: input.referenceAnswer,
           generatedAnswer: input.generatedAnswer,
           evidence: input.evidence,
+          expectedFacts: input.expectedFacts,
         }),
       },
     ],
@@ -135,6 +150,7 @@ Return JSON only, with this exact shape:
     !("correctness" in parsed) ||
     !("faithfulness" in parsed) ||
     !("relevancy" in parsed) ||
+    !("expectedFactCoverage" in parsed) ||
     !("failureType" in parsed) ||
     !("correctAnswerWrongEvidence" in parsed) ||
     !("reason" in parsed)
@@ -143,6 +159,14 @@ Return JSON only, with this exact shape:
   }
 
   const result = parsed as Record<string, unknown>;
+
+  const expectedFactCoverage =
+  result.expectedFactCoverage === null
+    ? null
+    : normalizeScore(
+        result.expectedFactCoverage,
+        "expectedFactCoverage",
+      );
 
   if (
     typeof result.failureType !== "string" ||
@@ -163,6 +187,7 @@ Return JSON only, with this exact shape:
     correctness: normalizeScore(result.correctness, "correctness"),
     faithfulness: normalizeScore(result.faithfulness, "faithfulness"),
     relevancy: normalizeScore(result.relevancy, "relevancy"),
+    expectedFactCoverage,
     failureType: result.failureType as FailureType,
     correctAnswerWrongEvidence: result.correctAnswerWrongEvidence,
     reason: result.reason,

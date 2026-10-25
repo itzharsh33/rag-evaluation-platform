@@ -5,6 +5,7 @@ import { env } from "./config/env.js";
 import { healthRouter } from "./routes/health.js";
 import { documentsRouter } from "./routes/documents.js";
 import { ragRouter } from "./routes/rag.js";
+import { evaluationRouter } from "./routes/evaluation.js";
 
 export const app = express();
 
@@ -30,6 +31,8 @@ app.use("/api/health", healthRouter);
 app.use("/api/documents", documentsRouter);
 
 app.use("/api/rag", ragRouter);
+
+app.use("/api/evaluation", evaluationRouter);
 
 app.use((_req, res) => {
   res.status(404).json({

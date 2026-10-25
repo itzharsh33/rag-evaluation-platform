@@ -209,9 +209,7 @@ ${INSUFFICIENT_EVIDENCE}
       answer,
       abstained,
       strategy,
-      sources: abstained ? [] : sources.map(
-        ({ content, ...source }) => source,
-      ),
+      sources: sources.map(({ content, ...source }) => source),
       metrics: {
         embeddingMs,
         retrievalMs,

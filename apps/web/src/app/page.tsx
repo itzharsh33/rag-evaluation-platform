@@ -14,6 +14,12 @@ type DocumentItem = {
   created_at?: string;
 };
 
+type RetrievalStrategy =
+  | "fixed_vector"
+  | "semantic_vector"
+  | "hybrid_rrf"
+  | "vector_rerank";
+
 type Source = {
   citation: string;
   chunkId: string;
@@ -26,6 +32,7 @@ type Source = {
 type QueryResponse = {
   answer: string;
   abstained: boolean;
+  strategy?: RetrievalStrategy;
   sources: Source[];
   metrics: {
     embeddingMs: number;
@@ -60,6 +67,7 @@ export default function Home() {
 
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [strategy, setStrategy] = useState<RetrievalStrategy>("fixed_vector");
 
   const loadDocuments = useCallback(async () => {
     setLoadingDocuments(true);
@@ -122,7 +130,6 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(await readError(response));
       }
-
 
       const data = await response.json();
       const documentId = data?.document?.id as string | undefined;
@@ -211,6 +218,7 @@ export default function Home() {
         body: JSON.stringify({
           question: trimmedQuestion,
           topK: 5,
+          strategy,
         }),
       });
 
@@ -407,6 +415,37 @@ export default function Home() {
           </div>
 
           <form onSubmit={handleAsk} className="space-y-4">
+            <div className="space-y-2">
+              <label
+                htmlFor="retrieval-strategy"
+                className="block text-sm font-medium"
+              >
+                Retrieval method
+              </label>
+
+              <select
+                id="retrieval-strategy"
+                value={strategy}
+                onChange={(event) =>
+                  setStrategy(event.target.value as RetrievalStrategy)
+                }
+                disabled={asking}
+                className="w-full rounded-lg border border-slate-300 bg-white p-3 text-sm outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              >
+                <option value="fixed_vector">Fixed Vector Search</option>
+                <option value="semantic_vector">Semantic Vector Search</option>
+                <option value="hybrid_rrf">Hybrid Search (RRF)</option>
+                <option value="vector_rerank">
+                  Vector Search + Re-ranking
+                </option>
+              </select>
+
+              <p className="text-xs text-slate-500">
+                This method determines which document chunks are retrieved
+                before the AI generates its answer.
+              </p>
+            </div>
+
             <label htmlFor="question" className="block text-sm font-medium">
               Your question
             </label>
@@ -442,6 +481,9 @@ export default function Home() {
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 <h2 className="text-xl font-semibold">Answer</h2>
+                <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-800">
+                  Retrieval: {result.strategy ?? strategy}
+                </span>
 
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-medium ${

@@ -477,8 +477,8 @@ The single-question test measures individual requests, not averages. Repeated ex
 B.Tech, Computer Science and Engineering  
 Indian Institute of Information Technology, Bhagalpur
 
-- GitHub: [YOUR_GITHUB_USERNAME](https://github.com/YOUR_GITHUB_USERNAME)
-- LinkedIn: [YOUR_LINKEDIN_PROFILE](https://www.linkedin.com/in/YOUR_LINKEDIN_PROFILE/)
+- GitHub: [YOUR_GITHUB_USERNAME](https://github.com/itzharsh33)
+- LinkedIn: [YOUR_LINKEDIN_PROFILE](https://www.linkedin.com/in/harsh-kumar-yadav-20844a2b6/)
 
 ---
 

@@ -24,3 +24,6 @@ uploads/*
 .DS_Store
 Thumbs.db
 .vscode/
+
+rag_platform_full_backup.sql
+*.sql.backup

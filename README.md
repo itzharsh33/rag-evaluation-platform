@@ -9,12 +9,13 @@ Built to explore practical RAG engineering, retrieval optimization, and systemat
 
 ## 🌐 Live Demo
 
-**Live application:** http://15.252.239.113
+The RAG Evaluation & Optimization Platform is deployed on AWS EC2 using Docker Compose.
 
-The application is deployed on an AWS EC2 instance using Docker Compose. The public entry point is Nginx, which routes requests to the Next.js frontend and Express API. PostgreSQL with pgvector stores document chunks and evaluation data.
+🏠 Main Application: http://15.252.239.113/
 
-> **Note:** This demo currently uses HTTP. Do not enter sensitive information. HTTPS can be configured by adding a domain and TLS certificate.
+📊 Evaluation Dashboard: http://15.252.239.113/evaluation
 
+The public entry point is Nginx, which routes requests to the Next.js frontend and Express API. PostgreSQL with pgvector stores document chunks and evaluation data.
 
 ## 🛠️ Tech Stack
 

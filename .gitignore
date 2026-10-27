@@ -3,11 +3,13 @@
 .env
 .env.*
 !.env.example
+.env.aws-test
 
 # Dependencies and build output
 node_modules/
 **/node_modules/
 .next/
+
 **/.next/
 dist/
 **/dist/
@@ -22,3 +24,6 @@ uploads/*
 .DS_Store
 Thumbs.db
 .vscode/
+
+rag_platform_full_backup.sql
+*.sql.backup

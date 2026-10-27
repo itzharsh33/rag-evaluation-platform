@@ -6,6 +6,16 @@ A full-stack Retrieval-Augmented Generation (RAG) application that lets users up
 
 Built to explore practical RAG engineering, retrieval optimization, and systematic evaluation of LLM-powered applications.
 
+
+## 🌐 Live Demo
+
+**Live application:** http://15.252.239.113
+
+The application is deployed on an AWS EC2 instance using Docker Compose. The public entry point is Nginx, which routes requests to the Next.js frontend and Express API. PostgreSQL with pgvector stores document chunks and evaluation data.
+
+> **Note:** This demo currently uses HTTP. Do not enter sensitive information. HTTPS can be configured by adding a domain and TLS certificate.
+
+
 ## 🛠️ Tech Stack
 
 | Category | Technologies |
@@ -269,7 +279,10 @@ rag-evaluation-platform/
 ├── tests/
 ├── uploads/
 ├── .env.example
-├── docker-compose.yml
+├── docker-compose.yml          # Local development
+├── docker-compose.aws.yml      # AWS EC2 deployment
+├── nginx/
+│   └── default.conf            # Nginx reverse proxy for AWS
 ├── package.json
 ├── benchmark_chunks_all.csv
 ├── benchmark_source_chunks.csv
@@ -383,6 +396,52 @@ docker compose down
 ```
 
 This stops the services without intentionally deleting the database volume. Avoid removing volumes unless you intend to delete the persisted data.
+
+## ☁️ AWS Deployment
+
+The repository has separate Docker Compose configurations for local development and AWS deployment:
+
+- `docker-compose.yml` — local development on your machine.
+- `docker-compose.aws.yml` — deployment configuration used on the AWS EC2 instance.
+- `nginx/default.conf` — Nginx reverse-proxy configuration. Public HTTP traffic enters through port `80`; the API and database are not intended to be exposed directly to the public internet.
+
+### AWS architecture
+
+```text
+Browser
+   |
+   | HTTP :80
+   v
+Nginx
+   |--------------------|
+   v                    v
+Next.js web         Express API
+                         |
+                         v
+                 PostgreSQL + pgvector
+```
+
+### Updating the AWS deployment
+
+After connecting to the EC2 instance and entering the project directory, pull the intended Git branch and rebuild/restart the services using the AWS Compose file:
+
+```bash
+git pull
+docker compose -f docker-compose.aws.yml up -d --build
+docker compose -f docker-compose.aws.yml ps
+```
+
+Check service logs when troubleshooting:
+
+```bash
+docker compose -f docker-compose.aws.yml logs --tail=100 api
+docker compose -f docker-compose.aws.yml logs --tail=100 web
+docker compose -f docker-compose.aws.yml logs --tail=100 nginx
+```
+
+Before running deployment commands, ensure the required environment file and variables exist on the EC2 instance. Keep production secrets on the server; do not commit `.env` files, API keys, database dumps, or other credentials to Git. Back up the database before making schema or migration changes. Avoid `docker compose down -v` on the production server because removing volumes can delete persisted database data.
+
+The public demo URL may change if the EC2 instance's public IP changes. For a stable public URL and HTTPS, configure a domain name and TLS.
 
 ## 🔐 Environment Variables
 
